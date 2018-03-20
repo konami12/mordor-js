@@ -84,11 +84,9 @@ class Mordor {
     static setActionButton() {
         this.swipe.next.addEventListener("click", () => {
             this.moveScroll();
-            console.log(this.swipe.position);
         });
         this.swipe.prev.addEventListener("click", () => {
             console.log(this.swipe.position);
-            this.moveScroll(false); 
         });
     }
 
