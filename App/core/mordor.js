@@ -76,10 +76,15 @@ class Mordor {
         }
     }
 
+    /**
+     * Permite colocar las acciones a los botones.
+     *
+     * return void.
+     */
     static setActionButton() {
         this.swipe.next.addEventListener("click", () => {
-            console.log(this.swipe.position);
             this.moveScroll();
+            console.log(this.swipe.position);
         });
         this.swipe.prev.addEventListener("click", () => {
             console.log(this.swipe.position);
