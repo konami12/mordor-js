@@ -1,95 +1,146 @@
-import "../styles/main.scss";
-
-const CONFIG = ["next", "prev", "content"];
-const INTERVAL = 1.953125;
-
-class Mordor {
+class OrcaSlide {
     /**
-     * Preparando configuracion inicial.
-     *
-     * @param {Objec} dom  Listado de componentes.
+     * Genera la transicion de los sliders.
      * 
-     * @type {void}
-     */
-    static set config(dom) {
-        this.dom = dom;
-        this.swipe = {
-            position: 0,
-            action: false,
-        };
-        this.getElementsDOM()
-            .setActionButton();
-    }
-
-    /**
-     * Permite identificar si existen los componentes
-     * basicos para la interaccion.
+     * @param  {Boolean} isNext Optional indica el tipo de accion.
      * 
-     * @return this.
+     * @return void.
      */
-    static getElementsDOM() {
-        const DOM = this.dom;
-        const KEYS = Object.keys(DOM);
-        const FILTER = KEYS.filter(key => CONFIG.includes(key) && document.querySelector(DOM[key]));
+    static animateSlide(isNext = true) {
+        const { 
+            active,
+            itemWidth,
+            items,
+            moveTo,
+            time,
+        } = this.configSlide;
 
-        if (FILTER.length >= CONFIG.length) {
-            const ELEMENTS = CONFIG.reduce((element, key) => {
-                let output = {};
-                output[key] = document.querySelector(DOM[key]);
-                if (key === CONFIG[2]) {
-                    let child = output[key].children[0] || {};
-                    output.leng = output[key].children.length;
-                    output.item = child.offsetWidth || 0;
-                    output.moveTo = Math.ceil(output.item / 128);
-                    output.scroll = output[key].scrollWidth || 0;
-                }
-                Object.assign(element, output);
-                return element;
-            }, {});
-            this.swipe.action = (ELEMENTS.item > 0 && ELEMENTS.moveTo > 0);
-            Object.assign(this.swipe, ELEMENTS);
-        }
-        return this;
-    }
+        const MOVE_TO = (isNext) ? moveTo : -moveTo;
 
-    /**
-     * Permite mover el scroll.
-     *
-     * @param {boolean} isNext Indica la accion del movimiento.
-     * 
-     * @return void
-     */
-    static moveScroll(isNext = true) {
-        if (this.swipe.action) {
-            const SCROLL = this.swipe.content;
-            this.swipe.position += (isNext) ? 1 : -1;
-            const FULL_MOVETO = this.swipe.item * this.swipe.position;
+        if (active) {
+            this.configSlide.position += (isNext) ? 1 : -1;
+            this.configSlide.active = false;
             let counter = 0;
             const TIMER = setInterval(() => {
-                SCROLL.scrollLeft += (isNext) ? this.swipe.moveTo : -this.swipe.moveTo;
-                counter += this.swipe.moveTo;
-                if (counter >= this.swipe.item) {
+                this.moveToScroll(MOVE_TO);
+                counter += moveTo;
+                if (counter >= itemWidth) {
                     clearInterval(TIMER);
-                    SCROLL.scrollLeft = FULL_MOVETO;
+                    const FULL_MOVE_TO = itemWidth * this.configSlide.position;
+                    this.moveToScroll(FULL_MOVE_TO, false);
+                    this.configSlide.active = true;
                 }
-            }, INTERVAL);
+            }, time);
         }
     }
 
     /**
-     * Permite colocar las acciones a los botones.
-     *
-     * return void.
+     * Permite realizar el movimiento del scroll.
+     * 
+     * @param  {number} pixels Numero de pixeles a desplazar.
+     * @param  {Boolean} isAdd (Optiona) indica si los piexeles se agregan a la 
+     *                                   cuenta actual.
+     *                                   
+     * @return void.
      */
-    static setActionButton() {
-        this.swipe.next.addEventListener("click", () => {
-            this.moveScroll();
-        });
-        this.swipe.prev.addEventListener("click", () => {
-            this.moveScroll(false);
-        });
+    static moveToScroll(pixels, isAdd = true) {
+        const { contentItem } = this.configSlide;
+        if (isAdd) {
+            contentItem.scrollLeft += pixels;
+        } else {
+            contentItem.scrollLeft = pixels;
+        }
     }
 
+    /**
+     * Se carga la configuracion inicial.
+     * 
+     * @param {Object} config  configuracion inicial.
+     *
+     * @return void.
+     */
+    static set config(config) {
+        this.configSlide = {
+            arrowNext: "",
+            arrowPrevious: "",
+            contentItem: "",
+            time: 1,
+            isInfinite: true,
+            position: 0,
+            active: false,
+        };
+        Object.assign(this.configSlide, config);
+        this.validateConfig
+            .setActionButton;
+    }
+
+    /**
+     * Asigna los eventos a las flechas.
+     *
+     * @return void.
+     */
+    static get setActionButton() {
+        const KEYS = [
+            "arrowNext", 
+            "arrowPrevious"
+        ];
+        KEYS.forEach((button) => {
+            const IS_NEXT = (button === "arrowNext");
+            const BUTTON = this.configSlide[button];
+            BUTTON.addEventListener("click", () => {
+                let { position, items, isInfinite } = this.configSlide;
+                position += (IS_NEXT) ? 1 : -1;
+                if (position >= 0 && position <= items) {
+                    this.animateSlide(IS_NEXT);
+                } else if (items < position) {
+                    if (isInfinite) { 
+                        this.moveToScroll(0, false);
+                        this.configSlide.position = 0;
+                        this.configSlide.active = true;
+                    }
+                }
+            });
+        });
+        return;
+    }
+    
+    /**
+     * Validacion de la configuracion base.
+     * 
+     * @type {Object} Resive la configuracion base.
+     *
+     * @return self Fluent interface.
+     */
+    static get validateConfig() {
+        const KEYS = [
+            "arrowNext", 
+            "arrowPrevious", 
+            "contentItem",
+        ];
+
+        KEYS.forEach((item) => {
+            const SELECTOR = this.configSlide[item];
+            const ELEMENT = document.querySelector(SELECTOR);
+
+            if (ELEMENT) {
+                this.configSlide[item] = ELEMENT;
+                if (item === "contentItem") {
+                    const ITEM = ELEMENT.children[0] || {};
+                    const ITEM_WIDTH = ITEM.offsetWidth || 0;
+                    const NEW_CONFIG = {
+                        items: ELEMENT.children.length - 1,
+                        itemWidth: ITEM_WIDTH,
+                        moveTo: Math.ceil(ITEM_WIDTH / 256),
+                        scrollWidth: ELEMENT.scrollWidth || 0,
+                        time: (this.configSlide.time * 1000) / 512,
+                    };
+                    this.configSlide.active = (NEW_CONFIG.items > 0 && NEW_CONFIG.moveTo > 0);
+                    Object.assign(this.configSlide, NEW_CONFIG);
+                }
+            }
+        });
+        return this;
+    }
 }
 
-export default Mordor;
+export default OrcaSlide;
