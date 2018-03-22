@@ -9,14 +9,14 @@
     font-size: 0;
     height: 400px;
     margin: 150px auto;
-    width: 900px;
+    width: 100%;
     &__Arrow {
         background-repeat: no-repeat;
         background-position: 0 50%;
         cursor: pointer;
         display: flex;
         height: 100%;
-        width: 50px;
+        width: 5%;
         &-next {
             @extend .Wrapper__Arrow;
             background-image: url("../img/next.png");
@@ -31,7 +31,7 @@
         display: flex;
         height: 100%;
         overflow: hidden;
-        width:800px;
+        width:100%;
     }
     
     &__Item{
