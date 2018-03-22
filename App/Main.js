@@ -7,7 +7,7 @@ document.onreadystatechange = () => {
             arrowPrevious: "#arrow_previus",
             arrowNext: "#arrow_next",
             contentItem: "#swipe",
-            time: 1,
+            time: 2,
         };
     }
 };

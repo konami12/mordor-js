@@ -65,7 +65,7 @@ class OrcaSlide {
             arrowPrevious: "",
             contentItem: "",
             time: 1,
-            isInfinite: true,
+            isInfinite: false,
             position: 0,
             active: false,
         };
@@ -88,20 +88,35 @@ class OrcaSlide {
             const IS_NEXT = (button === "arrowNext");
             const BUTTON = this.configSlide[button];
             BUTTON.addEventListener("click", () => {
-                let { position, items, isInfinite } = this.configSlide;
+                let {
+                    arrowNext,
+                    position,
+                    items,
+                    isInfinite,
+                    itemWidth 
+                } = this.configSlide;
                 position += (IS_NEXT) ? 1 : -1;
                 if (position >= 0 && position <= items) {
                     this.animateSlide(IS_NEXT);
-                } else if (items < position) {
-                    if (isInfinite) { 
-                        this.moveToScroll(0, false);
-                        this.configSlide.position = 0;
+                } else if (items < position || position < 0) {
+                    if (isInfinite) {
+                        const SCROLL = (position < 0) ? (items * itemWidth) : 0;
+                        this.moveToScroll(SCROLL, false);
+                        this.configSlide.position = (position < 0) ? items : 0;
                         this.configSlide.active = true;
+                    } else {
+                        this.displayToggle(arrowNext);
                     }
                 }
             });
         });
         return;
+    }
+    
+    static displayToggle(element) {
+        const ELEMENT = element;
+        const DISPLAY = ELEMENT.style.display || "block";
+        ELEMENT.style.display = (DISPLAY === "block") ? "none" : "";
     }
     
     /**
