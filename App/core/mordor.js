@@ -1,16 +1,15 @@
 class OrcaSlide {
     /**
      * Genera la transicion de los sliders.
-     * 
+     *
      * @param  {Boolean} isNext Optional indica el tipo de accion.
-     * 
+     *
      * @return void.
      */
     static animateSlide(isNext = true) {
-        const { 
+        const {
             active,
             itemWidth,
-            items,
             moveTo,
             time,
         } = this.configSlide;
@@ -35,12 +34,40 @@ class OrcaSlide {
     }
 
     /**
+     * Oculta las flechas.
+     *
+     * @param  {Object} element Referencia a elemento del dom.
+     *
+     * @return {void}
+     */
+    static displayArrow(index) {
+        const { arrowNext, arrowPrevious, items } = this.configSlide;
+        const DISPLAY_PREVIUS = (index > 0) ? "" : "none";
+        const DISPLAY_NEXT = (items === index) ? "none" : "";
+        arrowNext.style.display = DISPLAY_NEXT;
+        arrowPrevious.style.display = DISPLAY_PREVIUS;
+    }
+
+    /**
+     * Permite ocultar y mostar un elemento.
+     *
+     * @param  {Object} element Referencia a elemento del dom.
+     *
+     * @return {void}
+     */
+    static displayToggle(element) {
+        const ELEMENT = element;
+        const DISPLAY = ELEMENT.style.display || "block";
+        ELEMENT.style.display = (DISPLAY === "block") ? "none" : "";
+    }
+
+    /**
      * Permite realizar el movimiento del scroll.
-     * 
+     *
      * @param  {number} pixels Numero de pixeles a desplazar.
-     * @param  {Boolean} isAdd (Optiona) indica si los piexeles se agregan a la 
+     * @param  {Boolean} isAdd (Optiona) indica si los piexeles se agregan a la
      *                                   cuenta actual.
-     *                                   
+     *
      * @return void.
      */
     static moveToScroll(pixels, isAdd = true) {
@@ -52,9 +79,13 @@ class OrcaSlide {
         }
     }
 
+    // ================================================================= //
+    //                         Setter and Getter                         //
+    // ================================================================= //
+
     /**
      * Se carga la configuracion inicial.
-     * 
+     *
      * @param {Object} config  configuracion inicial.
      *
      * @return void.
@@ -70,8 +101,58 @@ class OrcaSlide {
             active: false,
         };
         Object.assign(this.configSlide, config);
-        this.validateConfig
-            .setActionButton;
+        this.validateConfig.setActionButton;
+    }
+
+    /**
+     * Permite manejar la logica de cuando el carousel es infinito.
+     *
+     * @param {number} index  Posicion actual del slider.
+     *
+     * @return {void}
+     */
+    static set isInfinite(index) {
+        const {
+            isInfinite,
+            items,
+            itemWidth,
+            position,
+        } = this.configSlide;
+        const RELOAD = (index < 0 || index >= position) && index;
+
+        if (isInfinite) {
+            const SCROLL = (RELOAD < 0) ? (items * itemWidth) : 0;
+            this.moveToScroll(SCROLL, false);
+            this.configSlide.position = (RELOAD < 0) ? items : 0;
+            this.configSlide.active = true;
+        } else {
+            this.displayArrow(RELOAD);
+        }
+    }
+
+
+    /**
+     * Permite identificar el tipo de dispositivo.
+     *
+     * @type {string}
+     */
+    static get isMobile() {
+        const DEVICE = (typeof navigator !== "undefined")
+            ? navigator.userAgent.match(/iPhone|iPad|iPod|Android/i)
+            : "desktop";
+        const WIDTH_SCREEN = (typeof window !== "undefined")
+            ? window.innerWidth
+            : "1024";
+        let request = "desktop";
+
+        if (DEVICE != null) {
+            if (WIDTH_SCREEN <= 768) {
+                request = "phone";
+            } else if (WIDTH_SCREEN > 768 && WIDTH_SCREEN <= 1024) {
+                request = "tablet";
+            }
+        }
+        return request;
     }
 
     /**
@@ -81,55 +162,38 @@ class OrcaSlide {
      */
     static get setActionButton() {
         const KEYS = [
-            "arrowNext", 
-            "arrowPrevious"
+            "arrowNext",
+            "arrowPrevious",
         ];
         KEYS.forEach((button) => {
             const IS_NEXT = (button === "arrowNext");
             const BUTTON = this.configSlide[button];
             BUTTON.addEventListener("click", () => {
-                let {
-                    arrowNext,
-                    position,
-                    items,
-                    isInfinite,
-                    itemWidth 
-                } = this.configSlide;
+                const { items } = this.configSlide;
+                let { position } = this.configSlide;
                 position += (IS_NEXT) ? 1 : -1;
                 if (position >= 0 && position <= items) {
                     this.animateSlide(IS_NEXT);
+                    this.isInfinite = position;
                 } else if (items < position || position < 0) {
-                    if (isInfinite) {
-                        const SCROLL = (position < 0) ? (items * itemWidth) : 0;
-                        this.moveToScroll(SCROLL, false);
-                        this.configSlide.position = (position < 0) ? items : 0;
-                        this.configSlide.active = true;
-                    } else {
-                        this.displayToggle(arrowNext);
-                    }
+                    this.isInfinite = position;
                 }
             });
         });
-        return;
+        return 0;
     }
-    
-    static displayToggle(element) {
-        const ELEMENT = element;
-        const DISPLAY = ELEMENT.style.display || "block";
-        ELEMENT.style.display = (DISPLAY === "block") ? "none" : "";
-    }
-    
+
     /**
      * Validacion de la configuracion base.
-     * 
+     *
      * @type {Object} Resive la configuracion base.
      *
      * @return self Fluent interface.
      */
     static get validateConfig() {
         const KEYS = [
-            "arrowNext", 
-            "arrowPrevious", 
+            "arrowNext",
+            "arrowPrevious",
             "contentItem",
         ];
 
@@ -151,6 +215,9 @@ class OrcaSlide {
                     };
                     this.configSlide.active = (NEW_CONFIG.items > 0 && NEW_CONFIG.moveTo > 0);
                     Object.assign(this.configSlide, NEW_CONFIG);
+                    if (!this.configSlide.isInfinite) {
+                        this.displayToggle(this.configSlide.arrowPrevious);
+                    }
                 }
             }
         });
