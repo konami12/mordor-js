@@ -8,8 +8,8 @@
     display: flex;
     font-size: 0;
     height: 500px;
-    margin: 150px auto;
-    width: 98%;
+    margin: 10px auto;
+    width: 80%;
 
     &__ArrowContent {
         display: inline-block;
@@ -61,6 +61,10 @@
             width: 100%;
             &:nth-child(2n) {
                 background-color: #268BD2;
+            }
+            img {
+                height: 100%;
+                width: 100%;
             }
         }
 

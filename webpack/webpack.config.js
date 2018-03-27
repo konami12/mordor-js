@@ -8,7 +8,7 @@ const CONFIG_WEBPACK = {
     output: {
         path: PATH.resolve(__dirname, "../App/public/js"),
         filename: "main.js",
-        publicPath: "/public/"
+        publicPath: "/public/",
     },
     module: {
         rules: [
@@ -16,10 +16,10 @@ const CONFIG_WEBPACK = {
                 test: /\.js$/,
                 use: {
                     loader: "babel-loader",
-                    options : {
+                    options: {
                         presets: ["env", "flow"],
-                    }
-                }
+                    },
+                },
             },
             {
                 test: /\.scss$/,
@@ -33,15 +33,15 @@ const CONFIG_WEBPACK = {
                 use: {
                     loader: "url-loader",
                     options: {
-                        limit: 500000,//esto nos permite indicar el size maximo de la imagen
-                    }
-                }
-            }
+                        limit: 500000,
+                    },
+                },
+            },
         ],
     },
     plugins: [
         new ExtractTextPlugin("../css/master.css"),
-    ]
+    ],
 };
 
 module.exports = CONFIG_WEBPACK;

@@ -36,7 +36,7 @@ class OrcaSlide {
     /**
      * Oculta las flechas.
      *
-     * @param  {Object} element Referencia a elemento del dom.
+     * @param {number} element posicion del elemento.
      *
      * @return {void}
      */
@@ -102,6 +102,27 @@ class OrcaSlide {
         };
         Object.assign(this.configSlide, config);
         this.validateConfig.setActionButton;
+        this.startTouch();
+    }
+
+    static startTouch() {
+        const DEVICE = this.isMobile;
+        let startX = 0;
+        const { contentItem } = this.configSlide;
+        if (DEVICE !== "desktop") {
+            contentItem.addEventListener("toucstart", (action) => {
+                const SWIPE = action.changedTouches[0];
+                startX = parseInt(SWIPE.clientX, 10);
+                action.preventDefault();
+            });
+
+            contentItem.addEventListener("touchmove", (action) => {
+                const SWIPE = action.changedTouches[0];
+                const CLIENT_X = parseInt(SWIPE.clientX, 10) - startX;
+                this.moveToScroll(CLIENT_X, false);
+                action.preventDefault();
+            });
+        }
     }
 
     /**
@@ -116,20 +137,20 @@ class OrcaSlide {
             isInfinite,
             items,
             itemWidth,
-            position,
         } = this.configSlide;
-        const RELOAD = (index < 0 || index >= position) && index;
-
+        const RELOAD = (index < 0 || index > items) && index;
         if (isInfinite) {
-            const SCROLL = (RELOAD < 0) ? (items * itemWidth) : 0;
-            this.moveToScroll(SCROLL, false);
-            this.configSlide.position = (RELOAD < 0) ? items : 0;
-            this.configSlide.active = true;
+            const INFINITE = (index < 0 || index > items);
+            if (INFINITE) {
+                const SCROLL = (RELOAD < 0) ? (items * itemWidth) : 0;
+                this.moveToScroll(SCROLL, false);
+                this.configSlide.position = (RELOAD < 0) ? items : 0;
+                this.configSlide.active = true;
+            }
         } else {
-            this.displayArrow(RELOAD);
+            this.displayArrow(index);
         }
     }
-
 
     /**
      * Permite identificar el tipo de dispositivo.
