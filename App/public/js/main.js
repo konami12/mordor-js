@@ -232,16 +232,20 @@ var OrcaSlide = function () {
             var contentItem = this.configSlide.contentItem;
 
             if (DEVICE !== "desktop") {
-                contentItem.addEventListener("toucstart", function (action) {
+                contentItem.addEventListener("touchstart", function (action) {
                     var SWIPE = action.changedTouches[0];
                     startX = parseInt(SWIPE.clientX, 10);
+                    console.log("start-x => ", startX);
                     action.preventDefault();
                 });
 
                 contentItem.addEventListener("touchmove", function (action) {
                     var SWIPE = action.changedTouches[0];
                     var CLIENT_X = parseInt(SWIPE.clientX, 10) - startX;
-                    _this2.moveToScroll(CLIENT_X, false);
+                    console.log("moveto => ", CLIENT_X);
+                    if (CLIENT_X >= 0) {
+                        _this2.moveToScroll(CLIENT_X, false);
+                    }
                     action.preventDefault();
                 });
             }

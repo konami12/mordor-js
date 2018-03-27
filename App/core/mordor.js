@@ -110,16 +110,20 @@ class OrcaSlide {
         let startX = 0;
         const { contentItem } = this.configSlide;
         if (DEVICE !== "desktop") {
-            contentItem.addEventListener("toucstart", (action) => {
+            contentItem.addEventListener("touchstart", (action) => {
                 const SWIPE = action.changedTouches[0];
                 startX = parseInt(SWIPE.clientX, 10);
+                console.log("start-x => ", startX);
                 action.preventDefault();
             });
 
             contentItem.addEventListener("touchmove", (action) => {
                 const SWIPE = action.changedTouches[0];
                 const CLIENT_X = parseInt(SWIPE.clientX, 10) - startX;
-                this.moveToScroll(CLIENT_X, false);
+                console.log("moveto => ", CLIENT_X);
+                if (CLIENT_X >= 0) {
+                    this.moveToScroll(CLIENT_X, false);
+                }
                 action.preventDefault();
             });
         }
