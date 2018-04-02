@@ -7,16 +7,24 @@
     background-color: #272822;
     display: flex;
     font-size: 0;
-    height: 400px;
-    margin: 150px auto;
-    width: 900px;
+    height: 500px;
+    margin: 10px auto;
+    width: 80%;
+
+    &__ArrowContent {
+        display: inline-block;
+        height: 100%;
+        vertical-align: top;
+        width: 5%;
+    }
+    
     &__Arrow {
         background-repeat: no-repeat;
-        background-position: 0 50%;
+        background-position: center center;
+        background-size: 80%;
         cursor: pointer;
-        display: flex;
         height: 100%;
-        width: 50px;
+        width: 100%;    
         &-next {
             @extend .Wrapper__Arrow;
             background-image: url("../img/next.png");
@@ -26,26 +34,39 @@
             background-image: url("../img/previus.png");
         }
     }
-    &__Swipe {
-        background-color: #66D9EF;
-        display: flex;
-        height: 100%;
-        overflow: hidden;
-        width:800px;
-    }
-    
-    &__Item{
-        background-color: #2AA198;
-        color: white;
-        text-align: center;
-        font-size: 50px;
-        flex-shrink: 0;
-        height: 100%;
-        line-height: 400px;
+
+    &__Conent {
+        display: inline-block;
+        background-color: #113e54;
         vertical-align: top;
-        width: 100%;
-        &:nth-child(2n) {
-            background-color: #268BD2;
+        width: 90%;
+
+        &-items {
+            display: flex;
+            height: 100%;
+            overflow: hidden;
+            width: 100%;
         }
+        
+        &-item {
+            background-color: #2AA198;
+            color: white;
+            display: inline-block;
+            text-align: center;
+            font-size: 50px;
+            flex-shrink: 0;
+            height: 100%;
+            line-height: 400px;
+            vertical-align: top;
+            width: 100%;
+            &:nth-child(2n) {
+                background-color: #268BD2;
+            }
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+
     }
 }

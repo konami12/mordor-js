@@ -1,10 +1,13 @@
-import Mordor from "./core/mordor";
+import OrcaSlide from "./core/mordor";
+import "./styles/main.scss";
+
 document.onreadystatechange = () => {
     if (document.readyState === "complete") {
-        Mordor.config = {
-            prev: "#arrow_previus",
-            next: "#arrow_next",
-            content: "#swipe",
+        OrcaSlide.config = {
+            arrowPrevious: "#arrow_previus",
+            arrowNext: "#arrow_next",
+            contentItem: "#swipe",
+            time: 2,
         };
     }
 };
