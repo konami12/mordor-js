@@ -108,23 +108,80 @@ class OrcaSlide {
     static startTouch() {
         const DEVICE = this.isMobile;
         let startX = 0;
-        const { contentItem } = this.configSlide;
+        const {
+            contentItem,
+        } = this.configSlide;
+
+        let {
+            position,
+        } = this.configSlide;
+
         if (DEVICE !== "desktop") {
+            let clientX = 0;
             contentItem.addEventListener("touchstart", (action) => {
                 const SWIPE = action.changedTouches[0];
                 startX = parseInt(SWIPE.clientX, 10);
-                console.log("start-x => ", startX);
+                console.log("Start: start-x => ", startX);
                 action.preventDefault();
             });
 
             contentItem.addEventListener("touchmove", (action) => {
+                const { itemWidth } = this.configSlide;
+                const itemWidthPercentage = 20;
+                const itemSafeMove = parseInt((itemWidth * itemWidthPercentage) / 100, 10);
                 const SWIPE = action.changedTouches[0];
-                const CLIENT_X = parseInt(SWIPE.clientX, 10) - startX;
-                console.log("moveto => ", CLIENT_X);
-                if (CLIENT_X >= 0) {
-                    this.moveToScroll(CLIENT_X, false);
+                clientX = parseInt(SWIPE.clientX, 10) - startX;
+                console.log("Move: SWIPE.clientX => ", SWIPE.clientX);
+                console.log("Move: startX => ", startX);
+                console.log("Move: clientX => ", clientX);
+                console.log("Move: itemWidth =>", itemWidth);
+                console.log("Move: itemSafeMove =>", itemSafeMove);
+                if (clientX >= 0) {
+                    this.moveToScroll(clientX, false);
                 }
+                // if (CLIENT_X !== 0) {
+                //     // this.moveToScroll(CLIENT_X, false);
+                // }
+                // if (clientX >= 0 && clientX >= itemSafeMove) {
+                //     this.animateSlide(false);
+                // } else if (clientX <= 0 && (clientX * -1) >= itemSafeMove) {
+                //     this.animateSlide(true);
+                // }
                 action.preventDefault();
+                return false;
+            });
+            contentItem.addEventListener("touchend", (action) => {
+                console.log("position", position);
+                const { itemWidth } = this.configSlide;
+                const itemWidthPercentage = 35;
+                const itemSafeMove = parseInt((itemWidth * itemWidthPercentage) / 100, 10);
+                const SWIPE = action.changedTouches[0];
+                clientX = parseInt(SWIPE.clientX, 10) - startX;
+                console.log("End SWIPE.clientX => ", SWIPE.clientX);
+                console.log("End startX => ", startX);
+                console.log("End clientX => ", clientX);
+                console.log("End itemWidth =>", itemWidth);
+                console.log("End itemSafeMove =>", itemSafeMove);
+                if (clientX >= 0 && clientX >= itemSafeMove) {
+                    console.log("------------1------------");
+                    this.animateSlide(true);
+                    position += 1;
+                } else if (clientX < 0 && (clientX * -1) >= itemSafeMove) {
+                    console.log("------------2------------");
+                    this.animateSlide(false);
+                    position -= 1;
+                } else if (clientX >= 0) {
+                    this.animateSlide(false);
+                } else {
+                    this.animateSlide(true);
+                }
+                if (position <= 0) {
+                    console.log("hea");
+                    clientX = 0;
+                    position = 0;
+                }
+                console.log("position", position);
+                console.log("End startX => ", startX);
             });
         }
     }

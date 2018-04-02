@@ -230,23 +230,77 @@ var OrcaSlide = function () {
             var DEVICE = this.isMobile;
             var startX = 0;
             var contentItem = this.configSlide.contentItem;
+            var position = this.configSlide.position;
+
 
             if (DEVICE !== "desktop") {
+                var clientX = 0;
                 contentItem.addEventListener("touchstart", function (action) {
                     var SWIPE = action.changedTouches[0];
                     startX = parseInt(SWIPE.clientX, 10);
-                    console.log("start-x => ", startX);
+                    console.log("Start: start-x => ", startX);
                     action.preventDefault();
                 });
 
                 contentItem.addEventListener("touchmove", function (action) {
+                    var itemWidth = _this2.configSlide.itemWidth;
+
+                    var itemWidthPercentage = 20;
+                    var itemSafeMove = parseInt(itemWidth * itemWidthPercentage / 100, 10);
                     var SWIPE = action.changedTouches[0];
-                    var CLIENT_X = parseInt(SWIPE.clientX, 10) - startX;
-                    console.log("moveto => ", CLIENT_X);
-                    if (CLIENT_X >= 0) {
-                        _this2.moveToScroll(CLIENT_X, false);
+                    clientX = parseInt(SWIPE.clientX, 10) - startX;
+                    console.log("Move: SWIPE.clientX => ", SWIPE.clientX);
+                    console.log("Move: startX => ", startX);
+                    console.log("Move: clientX => ", clientX);
+                    console.log("Move: itemWidth =>", itemWidth);
+                    console.log("Move: itemSafeMove =>", itemSafeMove);
+                    if (clientX >= 0) {
+                        _this2.moveToScroll(clientX, false);
                     }
+                    // if (CLIENT_X !== 0) {
+                    //     // this.moveToScroll(CLIENT_X, false);
+                    // }
+                    // if (clientX >= 0 && clientX >= itemSafeMove) {
+                    //     this.animateSlide(false);
+                    // } else if (clientX <= 0 && (clientX * -1) >= itemSafeMove) {
+                    //     this.animateSlide(true);
+                    // }
                     action.preventDefault();
+                    return false;
+                });
+                contentItem.addEventListener("touchend", function (action) {
+                    console.log("position", position);
+                    var itemWidth = _this2.configSlide.itemWidth;
+
+                    var itemWidthPercentage = 35;
+                    var itemSafeMove = parseInt(itemWidth * itemWidthPercentage / 100, 10);
+                    var SWIPE = action.changedTouches[0];
+                    clientX = parseInt(SWIPE.clientX, 10) - startX;
+                    console.log("End SWIPE.clientX => ", SWIPE.clientX);
+                    console.log("End startX => ", startX);
+                    console.log("End clientX => ", clientX);
+                    console.log("End itemWidth =>", itemWidth);
+                    console.log("End itemSafeMove =>", itemSafeMove);
+                    if (clientX >= 0 && clientX >= itemSafeMove) {
+                        console.log("------------1------------");
+                        _this2.animateSlide(true);
+                        position += 1;
+                    } else if (clientX < 0 && clientX * -1 >= itemSafeMove) {
+                        console.log("------------2------------");
+                        _this2.animateSlide(false);
+                        position -= 1;
+                    } else if (clientX >= 0) {
+                        _this2.animateSlide(false);
+                    } else {
+                        _this2.animateSlide(true);
+                    }
+                    if (position <= 0) {
+                        console.log("hea");
+                        clientX = 0;
+                        position = 0;
+                    }
+                    console.log("position", position);
+                    console.log("End startX => ", startX);
                 });
             }
         }
