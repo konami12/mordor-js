@@ -101,8 +101,7 @@ class OrcaSlide {
             active: false,
         };
         Object.assign(this.configSlide, config);
-        this.validateConfig.setActionButton;
-        this.startTouch();
+        this.validateConfig.setActionButton.startTouch();
     }
 
     static startTouch() {
@@ -216,7 +215,7 @@ class OrcaSlide {
                 }
             });
         });
-        return 0;
+        return this;
     }
 
     /**
