@@ -228,12 +228,19 @@ var OrcaSlide = function () {
             var _this2 = this;
 
             var DEVICE = this.isMobile;
-            var contentItem = this.configSlide.contentItem;
+            var _configSlide3 = this.configSlide,
+                contentItem = _configSlide3.contentItem,
+                items = _configSlide3.items,
+                itemWidth = _configSlide3.itemWidth;
 
+            console.log("items", items);
+            console.log("itemWidth", itemWidth);
             if (DEVICE !== "desktop") {
-                var startX = 0;
                 var clientX = 0;
+                var clientXAuxiliar = 0;
                 var endX = 0;
+                var startX = 0;
+                var X_MAX_AXE = items * itemWidth;
                 contentItem.addEventListener("touchstart", function (action) {
                     var SWIPE = action.changedTouches[0];
                     if (startX !== 0) {
@@ -245,9 +252,15 @@ var OrcaSlide = function () {
                 contentItem.addEventListener("touchmove", function (action) {
                     var SWIPE = action.changedTouches[0];
                     var swipeX = parseInt(SWIPE.clientX, 10);
-                    clientX = (swipeX - startX + endX) * -1;
+                    clientXAuxiliar = (swipeX - startX + endX) * -1;
+                    if (clientXAuxiliar < 0) {
+                        clientX = 0;
+                    } else if (clientXAuxiliar > X_MAX_AXE) {
+                        clientX = X_MAX_AXE;
+                    } else {
+                        clientX = clientXAuxiliar;
+                    }
                     _this2.moveToScroll(clientX, false);
-                    lastMove = swipeX;
                 });
             }
         }
@@ -279,10 +292,10 @@ var OrcaSlide = function () {
     }, {
         key: "isInfinite",
         set: function set(index) {
-            var _configSlide3 = this.configSlide,
-                isInfinite = _configSlide3.isInfinite,
-                items = _configSlide3.items,
-                itemWidth = _configSlide3.itemWidth;
+            var _configSlide4 = this.configSlide,
+                isInfinite = _configSlide4.isInfinite,
+                items = _configSlide4.items,
+                itemWidth = _configSlide4.itemWidth;
 
             var RELOAD = (index < 0 || index > items) && index;
             if (isInfinite) {
