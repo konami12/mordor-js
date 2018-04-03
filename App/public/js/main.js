@@ -229,6 +229,8 @@ var OrcaSlide = function () {
 
             var DEVICE = this.isMobile;
             var contentItem = this.configSlide.contentItem;
+            var position = this.configSlide.position;
+
 
             if (DEVICE !== "desktop") {
                 var startX = 0;
