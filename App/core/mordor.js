@@ -107,8 +107,6 @@ class OrcaSlide {
     static startTouch() {
         const DEVICE = this.isMobile;
         const { contentItem, items, itemWidth } = this.configSlide;
-        console.log("items", items);
-        console.log("itemWidth", itemWidth);
         if (DEVICE !== "desktop") {
             let clientX = 0;
             let clientXAuxiliar = 0;
