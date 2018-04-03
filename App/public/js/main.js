@@ -229,78 +229,26 @@ var OrcaSlide = function () {
 
             var DEVICE = this.isMobile;
             var contentItem = this.configSlide.contentItem;
-            var position = this.configSlide.position;
-
 
             if (DEVICE !== "desktop") {
                 var startX = 0;
                 var clientX = 0;
                 var endX = 0;
-                var lastMove = 0;
-                var moved = 0;
                 contentItem.addEventListener("touchstart", function (action) {
-                    console.log("toucstart");
-                    console.log("action", action);
                     var SWIPE = action.changedTouches[0];
-                    if (startX === 0) {
-                        startX = parseInt(SWIPE.clientX, 10);
-                    } else {
-                        endX = clientX;
-                        startX = parseInt(SWIPE.clientX, 10);
+                    if (startX !== 0) {
+                        endX = clientX * -1;
                     }
-                    console.log("SWIPE", SWIPE);
+                    startX = parseInt(SWIPE.clientX, 10);
                 });
 
                 contentItem.addEventListener("touchmove", function (action) {
-                    console.log("touchmove");
-                    console.log("action", action);
                     var SWIPE = action.changedTouches[0];
                     var swipeX = parseInt(SWIPE.clientX, 10);
-                    console.log("swipeX", swipeX);
-                    console.log("startX", startX);
-                    console.log("endX", endX);
-                    console.log("lastMove", lastMove);
-                    if (lastMove <= swipeX) {
-                        console.log("derecha");
-                        clientX = swipeX - startX + endX;
-                        _this2.moveToScroll(clientX, false);
-                    } else if (lastMove > swipeX) {
-                        console.log("izquerda");
-                        clientX = swipeX - startX + endX;
-                        _this2.moveToScroll(clientX, false);
-                    }
+                    clientX = (swipeX - startX + endX) * -1;
+                    _this2.moveToScroll(clientX, false);
                     lastMove = swipeX;
-                    console.log("lastMove", lastMove);
                 });
-                // contentItem.addEventListener("touchstart", (action) => {
-                //     console.log("toucstart");
-                //     const SWIPE = action.changedTouches[0];
-                //     if (startX === 0) {
-                //         startX = parseInt(SWIPE.clientX, 10);
-                //     } else {
-                //         endX = clientX;
-                //     }
-                //     console.log("touchstart | startX => ", startX);
-                //     action.preventDefault();
-                // });
-
-                // contentItem.addEventListener("touchmove", (action) => {
-                //     const SWIPE = action.changedTouches[0];
-                //     console.log("parseInt(SWIPE.clientX, 10) =>", parseInt(SWIPE.clientX, 10));
-                //     moved = (parseInt(SWIPE.clientX, 10) - startX);
-                //     console.log("moved", moved);
-                //     console.log("lastMove", lastMove);
-                //     if (moved >= lastMove) {
-                //         clientX = (parseInt(SWIPE.clientX, 10) - startX) + endX;
-                //         this.moveToScroll(clientX, false);
-                //     } else {
-                //         clientX = (parseInt(SWIPE.clientX, 10) - startX) - endX;
-                //         this.moveToScroll(clientX, false);
-                //     }
-                //     lastMove = clientX;
-                //     console.log("touchmove | clientX => ", clientX);
-                //     action.preventDefault();
-                // });
             }
         }
 
