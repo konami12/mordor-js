@@ -1,5 +1,4 @@
 const PATH = require("path");
-const WEBPACK = require("webpack");
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 

@@ -101,30 +101,38 @@ class OrcaSlide {
             active: false,
         };
         Object.assign(this.configSlide, config);
-        this.validateConfig.setActionButton;
-        this.startTouch();
+        this.validateConfig.setActionButton.startTouch();
     }
 
     static startTouch() {
         const DEVICE = this.isMobile;
-        let startX = 0;
-        const { contentItem } = this.configSlide;
+        const { contentItem, items, itemWidth } = this.configSlide;
         if (DEVICE !== "desktop") {
+            let clientX = 0;
+            let clientXAuxiliar = 0;
+            let endX = 0;
+            let startX = 0;
+            const X_MAX_AXE = items * itemWidth;
             contentItem.addEventListener("touchstart", (action) => {
                 const SWIPE = action.changedTouches[0];
+                if (startX !== 0) {
+                    endX = clientX * -1;
+                }
                 startX = parseInt(SWIPE.clientX, 10);
-                console.log("start-x => ", startX);
-                action.preventDefault();
             });
 
             contentItem.addEventListener("touchmove", (action) => {
                 const SWIPE = action.changedTouches[0];
-                const CLIENT_X = parseInt(SWIPE.clientX, 10) - startX;
-                console.log("moveto => ", CLIENT_X);
-                if (CLIENT_X >= 0) {
-                    this.moveToScroll(CLIENT_X, false);
+                const swipeX = parseInt(SWIPE.clientX, 10);
+                clientXAuxiliar = ((swipeX - startX) + endX) * -1;
+                if (clientXAuxiliar < 0) {
+                    clientX = 0;
+                } else if (clientXAuxiliar > X_MAX_AXE) {
+                    clientX = X_MAX_AXE;
+                } else {
+                    clientX = clientXAuxiliar;
                 }
-                action.preventDefault();
+                this.moveToScroll(clientX, false);
             });
         }
     }
@@ -205,7 +213,7 @@ class OrcaSlide {
                 }
             });
         });
-        return 0;
+        return this;
     }
 
     /**

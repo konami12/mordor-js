@@ -1,42 +1,44 @@
 {
-  "name": "swipe-mordor",
-  "version": "1.0.0",
-  "description": "carousel con evento swipe",
-  "scripts": {
-    "build": "webpack --config ./webpack/webpack.config.js",
-    "prestart": "npm run build",
-    "start": "nodemon ./launch.js"
-  },
-  "repository": "git+https://github.com/konami12/mordor-js.git",
-  "keywords": [
-    "swipe",
-    "js",
-    "carousel",
-    "ecma"
-  ],
-  "author": "jorge mendez ortega",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/konami12/mordor-js/issues"
-  },
-  "homepage": "https://github.com/konami12/mordor-js#readme",
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-flow": "^6.23.0",
-    "css-loader": "^0.28.11",
-    "express": "^4.16.3",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "node-sass": "^4.7.2",
-    "nodemon": "^1.17.2",
-    "sass-loader": "^6.0.7",
-    "style-loader": "^0.20.3",
-    "url-loader": "^1.0.1",
-    "webpack": "3.10.0",
-    "webpack-dev-middleware": "^3.0.1",
-    "webpack-hot-middleware": "^2.21.2",
-    "webpack-notifier": "^1.6.0"
-  }
+    "name": "swipe-mordor",
+    "version": "1.0.0",
+    "description": "carousel con evento swipe",
+    "scripts": {
+        "build": "webpack --config ./webpack/webpack.config.js",
+        "prestart": "npm run build",
+        "start": "nodemon ./launch.js"
+    },
+    "repository": "git+https://github.com/konami12/mordor-js.git",
+    "keywords": [
+        "swipe",
+        "js",
+        "carousel",
+        "ecma"
+    ],
+    "author": "jorge mendez ortega",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/konami12/mordor-js/issues"
+    },
+    "homepage": "https://github.com/konami12/mordor-js#readme",
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-flow": "^6.23.0",
+        "css-loader": "^0.28.11",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "node-sass": "^4.7.2",
+        "nodemon": "^1.17.2",
+        "sass-loader": "^6.0.7",
+        "style-loader": "^0.20.3",
+        "url-loader": "^1.0.1",
+        "webpack": "3.10.0",
+        "webpack-dev-middleware": "^3.0.1",
+        "webpack-hot-middleware": "^2.21.2",
+        "webpack-notifier": "^1.6.0"
+    },
+    "dependencies": {
+        "express": "^4.16.3"
+    }
 }
