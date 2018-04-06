@@ -106,7 +106,15 @@ class OrcaSlide {
 
     static startTouch() {
         const DEVICE = this.isMobile;
-        const { contentItem, items, itemWidth } = this.configSlide;
+        const {
+            contentItem,
+            items,
+            itemWidth,
+        } = this.configSlide;
+
+        let {
+            position,
+        } = this.configSlide;
         if (DEVICE !== "desktop") {
             let clientX = 0;
             let clientXAuxiliar = 0;
@@ -133,6 +141,32 @@ class OrcaSlide {
                     clientX = clientXAuxiliar;
                 }
                 this.moveToScroll(clientX, false);
+            });
+
+            contentItem.addEventListener("touchend", (action) => {
+                const SWIPE = action.changedTouches[0];
+                const swipeX = parseInt(SWIPE.clientX, 10);
+                console.log("position", position);
+                console.log("swipeX", swipeX);
+                console.log("startX", startX);
+                console.log("clientXAuxiliar", clientXAuxiliar);
+                console.log("clientX", clientX);
+                console.log("startX - swipeX", startX - swipeX);
+                const percentage = (itemWidth * 20) / 100;
+                console.log("percentage", percentage);
+                const realSwiped = startX - swipeX;
+                const swiped = ((realSwiped) > 0) ? (startX - swipeX) : (startX - swipeX) * -1;
+                const direction = (realSwiped > 0) ? "right" : "left";
+                console.log("direction", direction);
+                if ((swiped) > percentage) {
+                    if (direction === "right" && position < (items - 1)) {
+                        position += 1;
+                        this.animateSlide(true);
+                    } else if (position > 0) {
+                        position += -1;
+                        this.animateSlide(false);
+                    }
+                }
             });
         }
     }
