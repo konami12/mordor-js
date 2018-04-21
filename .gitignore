@@ -2,4 +2,5 @@
 # Reglas para ignorar archivos                          #
 #=======================================================#
 /node_modules
-/App/public
+/App/public/js/*.*
+/App/public/css/*.*
