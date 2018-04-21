@@ -232,9 +232,8 @@ var OrcaSlide = function () {
                 contentItem = _configSlide3.contentItem,
                 items = _configSlide3.items,
                 itemWidth = _configSlide3.itemWidth;
+            var position = this.configSlide.position;
 
-            console.log("items", items);
-            console.log("itemWidth", itemWidth);
             if (DEVICE !== "desktop") {
                 var clientX = 0;
                 var clientXAuxiliar = 0;
@@ -262,6 +261,32 @@ var OrcaSlide = function () {
                     }
                     _this2.moveToScroll(clientX, false);
                 });
+
+                contentItem.addEventListener("touchend", function (action) {
+                    var SWIPE = action.changedTouches[0];
+                    var swipeX = parseInt(SWIPE.clientX, 10);
+                    console.log("position", position);
+                    console.log("swipeX", swipeX);
+                    console.log("startX", startX);
+                    console.log("clientXAuxiliar", clientXAuxiliar);
+                    console.log("clientX", clientX);
+                    console.log("startX - swipeX", startX - swipeX);
+                    var percentage = itemWidth * 20 / 100;
+                    console.log("percentage", percentage);
+                    var realSwiped = startX - swipeX;
+                    var swiped = realSwiped > 0 ? startX - swipeX : (startX - swipeX) * -1;
+                    var direction = realSwiped > 0 ? "right" : "left";
+                    console.log("direction", direction);
+                    if (swiped > percentage) {
+                        if (direction === "right" && position < items - 1) {
+                            position += 1;
+                            _this2.animateSlide(true);
+                        } else if (position > 0) {
+                            position += -1;
+                            _this2.animateSlide(false);
+                        }
+                    }
+                });
             }
         }
 
@@ -286,8 +311,7 @@ var OrcaSlide = function () {
                 active: false
             };
             Object.assign(this.configSlide, config);
-            this.validateConfig.setActionButton;
-            this.startTouch();
+            this.validateConfig.setActionButton.startTouch();
         }
     }, {
         key: "isInfinite",
@@ -362,7 +386,7 @@ var OrcaSlide = function () {
                     }
                 });
             });
-            return 0;
+            return this;
         }
 
         /**
