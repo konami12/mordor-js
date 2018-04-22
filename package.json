@@ -48,6 +48,6 @@
     },
     "dependencies": {
         "express": "^4.16.3",
-        "orcaslide": "^0.1.0"
+        "orcaslide": "^0.2.0"
     }
 }
