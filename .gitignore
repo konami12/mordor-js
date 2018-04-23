@@ -4,4 +4,5 @@
 /node_modules
 /App/public/js/*.*
 /App/public/css/*.*
+/App/core/orcaslide/
 .DS_Store

@@ -1,4 +1,4 @@
-import OrcaSlide from "orcaslide";
+import OrcaSlide from "./core/orcaslide/source/OrcaSlide";
 // import OrcaSlide from "./core/mordor";
 import "./styles/main.scss";
 
