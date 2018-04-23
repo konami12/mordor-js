@@ -70,9 +70,9 @@
 "use strict";
 
 
-var _mordor = __webpack_require__(1);
+var _OrcaSlide = __webpack_require__(1);
 
-var _mordor2 = _interopRequireDefault(_mordor);
+var _OrcaSlide2 = _interopRequireDefault(_OrcaSlide);
 
 __webpack_require__(3);
 
@@ -80,14 +80,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
-        _mordor2.default.config = {
+        _OrcaSlide2.default.config = {
             arrowPrevious: "#arrow_previus",
             arrowNext: "#arrow_next",
             contentItem: "#swipe",
-            time: 2
+            time: 1
         };
     }
 };
+// import OrcaSlide from "./core/mordor";
 
 /***/ }),
 /* 1 */
@@ -235,32 +236,6 @@ var OrcaSlide = function (_Utils) {
                         clientX = clientXAuxiliar;
                     }
                     _this3.moveToScroll(clientX, false);
-                });
-
-                contentItem.addEventListener("touchend", function (action) {
-                    var SWIPE = action.changedTouches[0];
-                    var swipeX = parseInt(SWIPE.clientX, 10);
-                    console.log("position", position);
-                    console.log("swipeX", swipeX);
-                    console.log("startX", startX);
-                    console.log("clientXAuxiliar", clientXAuxiliar);
-                    console.log("clientX", clientX);
-                    console.log("startX - swipeX", startX - swipeX);
-                    var percentage = itemWidth * 20 / 100;
-                    console.log("percentage", percentage);
-                    var realSwiped = startX - swipeX;
-                    var swiped = realSwiped > 0 ? startX - swipeX : (startX - swipeX) * -1;
-                    var direction = realSwiped > 0 ? "right" : "left";
-                    console.log("direction", direction);
-                    if (swiped > percentage) {
-                        if (direction === "right" && position < items - 1) {
-                            position += 1;
-                            _this3.animateSlide(true);
-                        } else if (position > 0) {
-                            position += -1;
-                            _this3.animateSlide(false);
-                        }
-                    }
                 });
             }
         }

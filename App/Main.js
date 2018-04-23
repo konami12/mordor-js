@@ -1,4 +1,5 @@
-import OrcaSlide from "./core/mordor";
+import OrcaSlide from "./core/orcaslide/source/OrcaSlide";
+// import OrcaSlide from "./core/mordor";
 import "./styles/main.scss";
 
 document.onreadystatechange = () => {
@@ -7,7 +8,7 @@ document.onreadystatechange = () => {
             arrowPrevious: "#arrow_previus",
             arrowNext: "#arrow_next",
             contentItem: "#swipe",
-            time: 2,
+            time: 1,
         };
     }
 };

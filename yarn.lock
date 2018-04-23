@@ -3979,9 +3979,9 @@ optionator@^0.8.2:
     type-check "~0.3.2"
     wordwrap "~1.0.0"
 
-orcaslide@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/orcaslide/-/orcaslide-0.1.0.tgz#123f8b2c8ce68a296bcae59efcbdbfcff5ecb25e"
+orcaslide@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/orcaslide/-/orcaslide-0.2.0.tgz#ad59385fe32aef3350989bbbfa9c97703054280a"
 
 os-browserify@^0.3.0:
   version "0.3.0"
