@@ -7,8 +7,12 @@ document.onreadystatechange = () => {
         OrcaSlide.config = {
             arrowPrevious: "#arrow_previus",
             arrowNext: "#arrow_next",
+            ctrlStop: "#stop",
+            ctrlPlay: "#play",
             contentItem: "#swipe",
             time: 1,
+            timeAutoPlay: 2.5,
+            isInfinite: true,
         };
     }
 };
