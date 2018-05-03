@@ -69,4 +69,25 @@
         }
 
     }
+
+    &-buttons {
+        @extend .Wrapper;
+        background-color: white;
+        cursor: pointer;
+        height: 50px;
+        &__play,
+        &__stop {
+            height: 32px;
+            margin-left: 10px;
+            width: 32px;
+        }
+        &__play {
+            background-image: url("../img/play.png");
+            background-size: 32px;
+        }
+        &__stop {
+            background-image: url("../img/stop.png");
+            background-size: 32px;
+        }
+    }
 }
