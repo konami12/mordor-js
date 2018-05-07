@@ -1,17 +1,41 @@
-## Carousel
+# Mordor
 
-Para poder levantar el proyecto es nesesario correr el comando 
+##  💾 Instalación
 
-`yarn install` 
+Para poder levantar el entorno de pruebas (Mordor), es nesesario correr el siguiente comando:
 
-en caso de no contar con *yarn*
+[![NPM Install](https://img.shields.io/badge/Install-NPM-brightgreen.svg)](https://www.npmjs.com/)
 
-`npm i`
+```
+npm i
+```
+o
 
-Al realizar la instalacion ejecutar el comando 
+[![Yarn Install](https://img.shields.io/badge/Install-Yarn-blue.svg)](https://yarnpkg.com/en/)
 
-`npm start`
+```
+yarn install
+```
 
-y consultar la url 
+## ⚙️ Ejecución
+
+Posteriormente, ejecutar:
+
+[![NPM Install](https://img.shields.io/badge/Install-NPM-brightgreen.svg)](https://www.npmjs.com/)
+
+```
+npm start
+```
+o
+
+[![Yarn Install](https://img.shields.io/badge/Install-Yarn-blue.svg)](https://yarnpkg.com/en/)
+
+```
+yarn start
+```
+
+## 🌎 Visualizar
+
+Mordor responde en el siguiente puerto:
 
 `http://localhost:3000/`
