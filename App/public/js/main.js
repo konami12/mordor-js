@@ -119,6 +119,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * [OrcaSlide description]
+ * @extends Utils
+ */
 var OrcaSlide = function (_Utils) {
     _inherits(OrcaSlide, _Utils);
 
@@ -155,11 +159,10 @@ var OrcaSlide = function (_Utils) {
             var MOVE_TO = isNext ? moveTo : -moveTo;
             var ACTUAL_POSITION = isNext ? position + 1 : position - 1;
             var INFINITE = items < ACTUAL_POSITION || ACTUAL_POSITION < 0;
-
             if (active) {
                 if (isInfinite && INFINITE) {
                     this.isInfinite = ACTUAL_POSITION;
-                } else {
+                } else if (!INFINITE) {
                     this.configSlide.position += isNext ? 1 : -1;
                     this.configSlide.active = false;
                     this.isInfinite = ACTUAL_POSITION;
@@ -325,6 +328,7 @@ var OrcaSlide = function (_Utils) {
         key: "isInfinite",
         set: function set(index) {
             var _configSlide5 = this.configSlide,
+                contentItem = _configSlide5.contentItem,
                 isInfinite = _configSlide5.isInfinite,
                 items = _configSlide5.items,
                 itemWidth = _configSlide5.itemWidth;
@@ -333,10 +337,12 @@ var OrcaSlide = function (_Utils) {
             if (isInfinite) {
                 var INFINITE = index < 0 || index > items;
                 if (INFINITE) {
+                    contentItem.style.scrollBehavior = "smooth";
                     var SCROLL = RELOAD < 0 ? items * itemWidth : 0;
                     this.moveToScroll(SCROLL, false);
                     this.configSlide.position = RELOAD < 0 ? items : 0;
                     this.configSlide.active = true;
+                    contentItem.removeAttribute("style");
                 }
             } else {
                 this.displayArrow(index);
@@ -418,7 +424,6 @@ var OrcaSlide = function (_Utils) {
             var _this7 = this;
 
             var KEYS = ["arrowNext", "arrowPrevious", "contentItem"];
-
             KEYS.forEach(function (item) {
                 var SELECTOR = _this7.configSlide[item];
                 var ELEMENT = _this7.getElementDom(SELECTOR);
@@ -431,7 +436,7 @@ var OrcaSlide = function (_Utils) {
                         var NEW_CONFIG = {
                             items: ELEMENT.children.length - 1,
                             itemWidth: ITEM_WIDTH,
-                            moveTo: Math.ceil(ITEM_WIDTH / 256),
+                            moveTo: Math.ceil(ITEM_WIDTH / 128),
                             scrollWidth: ELEMENT.scrollWidth || 0,
                             time: _this7.configSlide.time * 1000 / 512,
                             item: ITEM,
