@@ -70,17 +70,23 @@
 "use strict";
 
 
-var _OrcaSlide = __webpack_require__(1);
+var _source = __webpack_require__(1);
 
-var _OrcaSlide2 = _interopRequireDefault(_OrcaSlide);
+var _source2 = _interopRequireDefault(_source);
 
-__webpack_require__(3);
+__webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
-        _OrcaSlide2.default.config = {
+        _source2.default.config = {
+            arrowPrevious: "#barrow_previus",
+            arrowNext: "#barrow_next",
+            contentItem: "#bswipe",
+            time: 1
+        };
+        _source2.default.config = {
             arrowPrevious: "#arrow_previus",
             arrowNext: "#arrow_next",
             ctrlStop: "#stop",
@@ -107,47 +113,109 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Utils2 = __webpack_require__(2);
+var _OrcaSlide = __webpack_require__(2);
 
-var _Utils3 = _interopRequireDefault(_Utils2);
+var _OrcaSlide2 = _interopRequireDefault(_OrcaSlide);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var Config = {
+    arrowNext: "",
+    arrowPrevious: "",
+    autoPlay: false,
+    callbacks: [],
+    contentItem: "",
+    ctrlStop: "",
+    ctrlPlay: "",
+    time: 1,
+    timeAutoPlay: 2,
+    isInfinite: false,
+    position: 0,
+    active: false
+};
 
 /**
- * [OrcaSlide description]
- * @extends Utils
+ * Permite inicializar orcaslide con un nuevo
+ * scope.
  */
-var OrcaSlide = function (_Utils) {
-    _inherits(OrcaSlide, _Utils);
 
-    function OrcaSlide() {
-        _classCallCheck(this, OrcaSlide);
-
-        return _possibleConstructorReturn(this, (OrcaSlide.__proto__ || Object.getPrototypeOf(OrcaSlide)).apply(this, arguments));
+var initOrcaSlide = function () {
+    function initOrcaSlide() {
+        _classCallCheck(this, initOrcaSlide);
     }
 
-    _createClass(OrcaSlide, null, [{
-        key: "animateSlide",
+    _createClass(initOrcaSlide, null, [{
+        key: "config",
+        set: function set(config) {
+            var CONFIG = JSON.stringify(Config);
+            var NEW_CONFIG = JSON.parse(CONFIG);
+            Object.assign(NEW_CONFIG, config);
+            return new _OrcaSlide2.default(NEW_CONFIG);
+        }
+    }]);
 
-        /**
-         * Genera la transicion de los sliders.
-         *
-         * @param  {Boolean} isNext (Optional) indica el tipo de accion.
-         *
-         * @return void.
-         */
+    return initOrcaSlide;
+}();
+
+exports.default = initOrcaSlide;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Utils = __webpack_require__(3);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var OrcaSlide = function () {
+    /**
+     * Metodo inicial encargado de validar la configuracion.
+     *
+     * @param {object} configuracion inicial.
+     *
+     * @return {void}
+     */
+    function OrcaSlide(config) {
+        _classCallCheck(this, OrcaSlide);
+
+        this.configSlide = config;
+        this.autoPlayTimer = null;
+        this.initSlider();
+    }
+
+    /**
+     * Genera la transicion de los sliders.
+     *
+     * @param  {Boolean} isNext (Optional) indica el tipo de accion.
+     *
+     * @return void.
+     */
+
+
+    _createClass(OrcaSlide, [{
+        key: "animateSlide",
         value: function animateSlide() {
-            var _this2 = this;
+            var _this = this;
 
             var isNext = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
             var _configSlide = this.configSlide,
                 active = _configSlide.active,
+                contentItem = _configSlide.contentItem,
                 itemWidth = _configSlide.itemWidth,
                 items = _configSlide.items,
                 moveTo = _configSlide.moveTo,
@@ -160,6 +228,7 @@ var OrcaSlide = function (_Utils) {
             var ACTUAL_POSITION = isNext ? position + 1 : position - 1;
             var INFINITE = items < ACTUAL_POSITION || ACTUAL_POSITION < 0;
             if (active) {
+                this.callbacks(isNext, ACTUAL_POSITION);
                 if (isInfinite && INFINITE) {
                     this.isInfinite = ACTUAL_POSITION;
                 } else if (!INFINITE) {
@@ -168,13 +237,13 @@ var OrcaSlide = function (_Utils) {
                     this.isInfinite = ACTUAL_POSITION;
                     var counter = 0;
                     var TIMER = setInterval(function () {
-                        _this2.moveToScroll(MOVE_TO);
+                        _Utils2.default.moveToScroll(MOVE_TO, contentItem);
                         counter += moveTo;
                         if (counter >= itemWidth) {
                             clearInterval(TIMER);
-                            var FULL_MOVE_TO = itemWidth * _this2.configSlide.position;
-                            _this2.moveToScroll(FULL_MOVE_TO, false);
-                            _this2.configSlide.active = true;
+                            var FULL_MOVE_TO = itemWidth * _this.configSlide.position;
+                            _Utils2.default.moveToScroll(FULL_MOVE_TO, contentItem, false);
+                            _this.configSlide.active = true;
                         }
                     }, time);
                 }
@@ -191,7 +260,7 @@ var OrcaSlide = function (_Utils) {
     }, {
         key: "autoPlay",
         value: function autoPlay() {
-            var _this3 = this;
+            var _this2 = this;
 
             var play = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
@@ -204,8 +273,26 @@ var OrcaSlide = function (_Utils) {
                 clearInterval(this.autoPlayTimer);
             } else if (play && autoPlay) {
                 this.autoPlayTimer = setInterval(function () {
-                    _this3.animateSlide();
+                    _this2.animateSlide();
                 }, timeAutoPlay);
+            }
+        }
+    }, {
+        key: "callbacks",
+        value: function callbacks(isNext, position) {
+            var callbacks = this.configSlide.callbacks;
+
+            var INDEX = isNext ? position - 1 : position + 1;
+            var ACTION = callbacks["Slide" + INDEX] || null;
+            if (ACTION) {
+                var LAUNCH = ACTION.next === isNext || ACTION.previus && !isNext;
+                try {
+                    if (LAUNCH) ACTION.callback();
+                } catch (error) {
+                    console.groupCollapsed("%c 🚫 [OrcaSlide => Error]", "color:#FFF;");
+                    console.error(error);
+                    console.groupEnd("[OrcaSlide => Error]");
+                }
             }
         }
 
@@ -229,11 +316,26 @@ var OrcaSlide = function (_Utils) {
 
             var DISPLAY_PREVIUS = index > 0 ? "" : "none";
             var DISPLAY_NEXT = items === index ? "none" : "";
-            this.displayToggle(arrowNext, DISPLAY_NEXT);
-            this.displayToggle(arrowPrevious, DISPLAY_PREVIUS);
+            _Utils2.default.displayToggle(arrowNext, DISPLAY_NEXT);
+            _Utils2.default.displayToggle(arrowPrevious, DISPLAY_PREVIUS);
             if (autoPlay && !isInfinite && DISPLAY_NEXT === "none") {
                 this.autoPlay(false);
             }
+        }
+
+        /**
+         * Se encarga de lanzar los eventos que dan vida al slider..
+         *
+         * @return void.
+         */
+
+    }, {
+        key: "initSlider",
+        value: function initSlider() {
+            this.validateConfig.setActionButton.resizeSlide.startTouch();
+
+            if (this.configSlide.autoPlay) this.autoPlay();
+            return 0;
         }
 
         // ================================================================= //
@@ -241,26 +343,17 @@ var OrcaSlide = function (_Utils) {
         // ================================================================= //
 
         /**
-         * Se carga la configuracion inicial.
-         *
-         * @param {Object} config  configuracion inicial.
-         *
-         * @return void.
-         */
-
-    }, {
-        key: "startTouch",
-
-
-        /**
          * Se innicializa el evento touch.
          *
          * @return {void} [description]
          */
-        value: function startTouch() {
-            var _this4 = this;
 
-            var DEVICE = this.isMobile;
+    }, {
+        key: "startTouch",
+        value: function startTouch() {
+            var _this3 = this;
+
+            var DEVICE = _Utils2.default.isMobile;
             var _configSlide4 = this.configSlide,
                 contentItem = _configSlide4.contentItem,
                 items = _configSlide4.items;
@@ -282,12 +375,12 @@ var OrcaSlide = function (_Utils) {
                         direction = "left";
                     }
 
-                    if (direction === "left" && _this4.configSlide.position < items) {
-                        _this4.autoPlay(false);
-                        _this4.animateSlide(true);
-                    } else if (direction === "right" && _this4.configSlide.position > 0) {
-                        _this4.autoPlay(false);
-                        _this4.animateSlide(false);
+                    if (direction === "left" && _this3.configSlide.position < items) {
+                        _this3.autoPlay(false);
+                        _this3.animateSlide(true);
+                    } else if (direction === "right" && _this3.configSlide.position > 0) {
+                        _this3.autoPlay(false);
+                        _this3.animateSlide(false);
                     }
                 });
             }
@@ -301,29 +394,6 @@ var OrcaSlide = function (_Utils) {
          * @return {void}
          */
 
-    }, {
-        key: "config",
-        set: function set(config) {
-            this.configSlide = {
-                arrowNext: "",
-                arrowPrevious: "",
-                autoPlay: false,
-                contentItem: "",
-                ctrlStop: "",
-                ctrlPlay: "",
-                time: 1,
-                timeAutoPlay: 2,
-                isInfinite: false,
-                position: 0,
-                active: false
-            };
-            this.autoPlayTimer = null;
-            Object.assign(this.configSlide, config);
-
-            this.validateConfig.setActionButton.resizeSlide.startTouch();
-
-            if (this.configSlide.autoPlay) this.autoPlay();
-        }
     }, {
         key: "isInfinite",
         set: function set(index) {
@@ -339,7 +409,7 @@ var OrcaSlide = function (_Utils) {
                 if (INFINITE) {
                     contentItem.style.scrollBehavior = "smooth";
                     var SCROLL = RELOAD < 0 ? items * itemWidth : 0;
-                    this.moveToScroll(SCROLL, false);
+                    _Utils2.default.moveToScroll(SCROLL, contentItem, false);
                     this.configSlide.position = RELOAD < 0 ? items : 0;
                     this.configSlide.active = true;
                     contentItem.removeAttribute("style");
@@ -358,19 +428,19 @@ var OrcaSlide = function (_Utils) {
     }, {
         key: "resizeSlide",
         get: function get() {
-            var _this5 = this;
+            var _this4 = this;
 
             var CONFIG = this.configSlide;
-            var ITEM = this.existFields(CONFIG, "item", null);
-            var ELEMENT = this.existFields(CONFIG, "content", null);
+            var ITEM = _Utils2.default.existFields(CONFIG, "item", null);
+            var ELEMENT = _Utils2.default.existFields(CONFIG, "content", null);
 
             if (ITEM !== null && ELEMENT !== null) {
                 window.addEventListener("resize", function () {
-                    _this5.configSlide.scrollWidth = ELEMENT.scrollWidth;
-                    _this5.configSlide.moveTo = Math.ceil(ITEM.offsetWidth / 256);
-                    _this5.configSlide.itemWidth = ITEM.offsetWidth;
-                    var POST = ITEM.offsetWidth * _this5.configSlide.position;
-                    _this5.moveToScroll(POST, false);
+                    _this4.configSlide.scrollWidth = ELEMENT.scrollWidth;
+                    _this4.configSlide.moveTo = Math.ceil(ITEM.offsetWidth / 256);
+                    _this4.configSlide.itemWidth = ITEM.offsetWidth;
+                    var POST = ITEM.offsetWidth * _this4.configSlide.position;
+                    _Utils2.default.moveToScroll(POST, CONFIG.contentItem, false);
                 });
             }
             return this;
@@ -385,26 +455,26 @@ var OrcaSlide = function (_Utils) {
     }, {
         key: "setActionButton",
         get: function get() {
-            var _this6 = this;
+            var _this5 = this;
 
             var KEYS = ["arrowNext", "arrowPrevious", "ctrlStop", "ctrlPlay"];
             KEYS.forEach(function (button) {
-                var BUTTON = _this6.configSlide[button];
+                var BUTTON = _this5.configSlide[button];
                 var IS_PLAY = button === "ctrlPlay";
                 var IS_NEXT = button === "arrowNext";
                 var callbacks = function callbacks() {};
 
                 if (button.includes("ctrl")) {
                     callbacks = function callbacks() {
-                        _this6.autoPlay(IS_PLAY);
+                        _this5.autoPlay(IS_PLAY);
                     };
-                    _this6.actionButton(BUTTON, callbacks);
+                    _Utils2.default.actionButton(BUTTON, callbacks);
                 } else {
                     callbacks = function callbacks() {
-                        _this6.animateSlide(IS_NEXT);
-                        _this6.autoPlay(false);
+                        _this5.animateSlide(IS_NEXT);
+                        _this5.autoPlay(false);
                     };
-                    _this6.actionButton(BUTTON, callbacks);
+                    _Utils2.default.actionButton(BUTTON, callbacks);
                 }
             });
             return this;
@@ -421,15 +491,17 @@ var OrcaSlide = function (_Utils) {
     }, {
         key: "validateConfig",
         get: function get() {
-            var _this7 = this;
+            var _this6 = this;
 
             var KEYS = ["arrowNext", "arrowPrevious", "contentItem"];
+            var callbacks = this.configSlide.callbacks;
+
             KEYS.forEach(function (item) {
-                var SELECTOR = _this7.configSlide[item];
-                var ELEMENT = _this7.getElementDom(SELECTOR);
+                var SELECTOR = _this6.configSlide[item];
+                var ELEMENT = _Utils2.default.getElementDom(SELECTOR);
 
                 if (ELEMENT) {
-                    _this7.configSlide[item] = ELEMENT;
+                    _this6.configSlide[item] = ELEMENT;
                     if (item === "contentItem") {
                         var ITEM = ELEMENT.children[0] || {};
                         var ITEM_WIDTH = ITEM.offsetWidth || 0;
@@ -438,18 +510,19 @@ var OrcaSlide = function (_Utils) {
                             itemWidth: ITEM_WIDTH,
                             moveTo: Math.ceil(ITEM_WIDTH / 128),
                             scrollWidth: ELEMENT.scrollWidth || 0,
-                            time: _this7.configSlide.time * 1000 / 512,
+                            time: _this6.configSlide.time * 1000 / 512,
                             item: ITEM,
                             content: ELEMENT
                         };
-                        _this7.configSlide.active = NEW_CONFIG.items > 0 && NEW_CONFIG.moveTo > 0;
-                        Object.assign(_this7.configSlide, NEW_CONFIG);
-                        if (!_this7.configSlide.isInfinite) {
-                            _this7.displayToggle(_this7.configSlide.arrowPrevious, "none");
+                        _this6.configSlide.active = NEW_CONFIG.items > 0 && NEW_CONFIG.moveTo > 0;
+                        Object.assign(_this6.configSlide, NEW_CONFIG);
+                        if (!_this6.configSlide.isInfinite) {
+                            _Utils2.default.displayToggle(_this6.configSlide.arrowPrevious, "none");
                         }
                     }
                 }
             });
+            this.configSlide.callbacks = _Utils2.default.getCallbacksConfig(callbacks);
             return this.validateConfigAutoPlay;
         }
     }, {
@@ -465,8 +538,8 @@ var OrcaSlide = function (_Utils) {
             if (active) {
                 var CONFIG = {
                     timeAutoPlay: timeAutoPlay * 1000,
-                    ctrlPlay: this.getElementDom(ctrlPlay),
-                    ctrlStop: this.getElementDom(ctrlStop)
+                    ctrlPlay: _Utils2.default.getElementDom(ctrlPlay),
+                    ctrlStop: _Utils2.default.getElementDom(ctrlStop)
                 };
                 Object.assign(this.configSlide, CONFIG);
             }
@@ -475,12 +548,12 @@ var OrcaSlide = function (_Utils) {
     }]);
 
     return OrcaSlide;
-}(_Utils3.default);
+}();
 
 exports.default = OrcaSlide;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -613,15 +686,44 @@ var Utils = function () {
          *
          * @return void.
          */
-        value: function moveToScroll(pixels) {
-            var isAdd = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-            var contentItem = this.configSlide.contentItem;
+        value: function moveToScroll(pixels, contentItem) {
+            var isAdd = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
+            var CONTENT = contentItem;
             if (isAdd) {
-                contentItem.scrollLeft += pixels;
+                CONTENT.scrollLeft += pixels;
             } else {
-                contentItem.scrollLeft = pixels;
+                CONTENT.scrollLeft = pixels;
             }
+        }
+
+        /**
+         * Crea la configuracion base para el llamado de callbacks.
+         *
+         * @param  {array} config Listado de funciones.
+         *
+         * @return {object}
+         */
+
+    }, {
+        key: "getCallbacksConfig",
+        value: function getCallbacksConfig(config) {
+            var CONFIG = {
+                callback: function callback() {},
+                next: false,
+                previus: false
+            };
+
+            var CALLBACKS = config.reduce(function (action, item) {
+                var KEY = "Slide" + (item.slide - 1);
+                var DATA = {};
+                var DEFAULT = Object.assign({}, CONFIG);
+                Object.assign(DEFAULT, item);
+                DATA[KEY] = DEFAULT;
+                return Object.assign(action, DATA);
+            }, {});
+
+            return CALLBACKS;
         }
     }, {
         key: "isMobile",
@@ -647,7 +749,7 @@ var Utils = function () {
 exports.default = Utils;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
