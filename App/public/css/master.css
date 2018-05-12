@@ -7,9 +7,9 @@
   background-color: #272822;
   display: flex;
   font-size: 0;
-  height: 500px;
+  height: 300px;
   margin: 10px auto;
-  width: 80%; }
+  width: 450px; }
   .Wrapper__ArrowContent {
     display: inline-block;
     height: 100%;
