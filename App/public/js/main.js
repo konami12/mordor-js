@@ -240,7 +240,9 @@ var OrcaSlide = function () {
                     content.style.scrollBehavior = "smooth";
                     var TIMER = setInterval(function () {
                         _Utils2.default.moveToScroll(MOVE_TO, contentItem);
-                        counter += moveTo;
+                        console.log("demo");
+                        document.querySelector("body").style.backgroundColor = "rebeccapurple";
+                        counter += itemWidth;
                         if (counter >= itemWidth) {
                             clearInterval(TIMER);
                             var FULL_MOVE_TO = itemWidth * _this.configSlide.position;
@@ -505,13 +507,14 @@ var OrcaSlide = function () {
 
                 if (ELEMENT) {
                     _this6.configSlide[item] = ELEMENT;
+
                     if (item === "contentItem") {
                         var ITEM = ELEMENT.children[0] || {};
                         var ITEM_WIDTH = ITEM.offsetWidth || 0;
                         var NEW_CONFIG = {
                             items: ELEMENT.children.length - 1,
                             itemWidth: ITEM_WIDTH,
-                            moveTo: Math.ceil(ITEM_WIDTH / 128),
+                            moveTo: Math.ceil(ITEM_WIDTH / 32),
                             scrollWidth: ELEMENT.scrollWidth || 0,
                             time: _this6.configSlide.time * 1000 / 512,
                             item: ITEM,
