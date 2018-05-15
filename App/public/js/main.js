@@ -221,7 +221,8 @@ var OrcaSlide = function () {
                 moveTo = _configSlide.moveTo,
                 time = _configSlide.time,
                 position = _configSlide.position,
-                isInfinite = _configSlide.isInfinite;
+                isInfinite = _configSlide.isInfinite,
+                content = _configSlide.content;
 
 
             var MOVE_TO = isNext ? moveTo : -moveTo;
@@ -236,6 +237,7 @@ var OrcaSlide = function () {
                     this.configSlide.active = false;
                     this.isInfinite = ACTUAL_POSITION;
                     var counter = 0;
+                    content.style.scrollBehavior = "smooth";
                     var TIMER = setInterval(function () {
                         _Utils2.default.moveToScroll(MOVE_TO, contentItem);
                         counter += moveTo;
@@ -244,6 +246,7 @@ var OrcaSlide = function () {
                             var FULL_MOVE_TO = itemWidth * _this.configSlide.position;
                             _Utils2.default.moveToScroll(FULL_MOVE_TO, contentItem, false);
                             _this.configSlide.active = true;
+                            content.style.scrollBehavior = "";
                         }
                     }, time);
                 }
