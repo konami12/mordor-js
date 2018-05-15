@@ -501,7 +501,7 @@ var OrcaSlide = function () {
             KEYS.forEach(function (item) {
                 var SELECTOR = _this6.configSlide[item];
                 var ELEMENT = _Utils2.default.getElementDom(SELECTOR);
-                var DIVISOR = (_Utils2.default.isMobile === "desktop") ? 128 : 512;
+                var DIVISOR = (_Utils2.default.isMobile === "desktop") ? 128 : 16;
                 if (ELEMENT) {
                     _this6.configSlide[item] = ELEMENT;
                     if (item === "contentItem") {
