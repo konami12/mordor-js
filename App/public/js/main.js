@@ -70,9 +70,9 @@
 "use strict";
 
 
-var _OrcaSlide = __webpack_require__(2);
+var _source = __webpack_require__(1);
 
-var _OrcaSlide2 = _interopRequireDefault(_OrcaSlide);
+var _source2 = _interopRequireDefault(_source);
 
 __webpack_require__(4);
 
@@ -80,7 +80,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
-        _OrcaSlide2.default.config = {
+        _source2.default.config = {
+            arrowPrevious: "#barrow_previus",
+            arrowNext: "#barrow_next",
+            contentItem: "#bswipe",
+            time: 1
+        };
+        _source2.default.config = {
             arrowPrevious: "#arrow_previus",
             arrowNext: "#arrow_next",
             ctrlStop: "#stop",
@@ -95,7 +101,67 @@ document.onreadystatechange = function () {
 // import OrcaSlide from "./core/mordor";
 
 /***/ }),
-/* 1 */,
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _OrcaSlide = __webpack_require__(2);
+
+var _OrcaSlide2 = _interopRequireDefault(_OrcaSlide);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Config = {
+    arrowNext: "",
+    arrowPrevious: "",
+    autoPlay: false,
+    callbacks: [],
+    contentItem: "",
+    ctrlStop: "",
+    ctrlPlay: "",
+    time: 1,
+    timeAutoPlay: 2,
+    isInfinite: false,
+    position: 0,
+    active: false
+};
+
+/**
+ * Permite inicializar orcaslide con un nuevo
+ * scope.
+ */
+
+var initOrcaSlide = function () {
+    function initOrcaSlide() {
+        _classCallCheck(this, initOrcaSlide);
+    }
+
+    _createClass(initOrcaSlide, null, [{
+        key: "config",
+        set: function set(config) {
+            var CONFIG = JSON.stringify(Config);
+            var NEW_CONFIG = JSON.parse(CONFIG);
+            Object.assign(NEW_CONFIG, config);
+            return new _OrcaSlide2.default(NEW_CONFIG);
+        }
+    }]);
+
+    return initOrcaSlide;
+}();
+
+exports.default = initOrcaSlide;
+
+/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
