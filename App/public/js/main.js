@@ -84,7 +84,8 @@ document.onreadystatechange = function () {
             arrowPrevious: "#barrow_previus",
             arrowNext: "#barrow_next",
             contentItem: "#bswipe",
-            time: 1
+            time: 1,
+            jump: 120
         };
         _source2.default.config = {
             arrowPrevious: "#arrow_previus",
@@ -93,6 +94,7 @@ document.onreadystatechange = function () {
             ctrlPlay: "#play",
             contentItem: "#swipe",
             time: 1,
+            jump: 120,
             timeAutoPlay: 2.5,
             isInfinite: true
         };
@@ -505,6 +507,7 @@ var OrcaSlide = function () {
                 var SELECTOR = _this6.configSlide[item];
                 var ELEMENT = _Utils2.default.getElementDom(SELECTOR);
                 var JUMP = _Utils2.default.isMobile === "desktop" ? 128 : jump;
+                console.log(JUMP);
                 if (ELEMENT) {
                     _this6.configSlide[item] = ELEMENT;
                     if (item === "contentItem") {

@@ -49,6 +49,8 @@
       width: 100%; }
       .Wrapper__Conent-item:nth-child(2n) {
         background-color: #268BD2; }
+      .Wrapper__Conent-item:nth-child(3n) {
+        background-color: red; }
       .Wrapper__Conent-item img {
         height: 100%;
         width: 100%; }
