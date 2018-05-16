@@ -94,7 +94,7 @@ document.onreadystatechange = function () {
             ctrlStop: "#stop",
             ctrlPlay: "#play",
             contentItem: "#swipe",
-            time: 1,
+            time: .5,
             jump: 120,
             timeAutoPlay: 2.5,
             isInfinite: true
