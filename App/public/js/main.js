@@ -129,6 +129,7 @@ var Config = {
     contentItem: "",
     ctrlStop: "",
     ctrlPlay: "",
+    jump: 16,
     time: 1,
     timeAutoPlay: 2,
     isInfinite: false,
@@ -221,8 +222,7 @@ var OrcaSlide = function () {
                 moveTo = _configSlide.moveTo,
                 time = _configSlide.time,
                 position = _configSlide.position,
-                isInfinite = _configSlide.isInfinite,
-                content = _configSlide.content;
+                isInfinite = _configSlide.isInfinite;
 
 
             var MOVE_TO = isNext ? moveTo : -moveTo;
@@ -237,7 +237,6 @@ var OrcaSlide = function () {
                     this.configSlide.active = false;
                     this.isInfinite = ACTUAL_POSITION;
                     var counter = 0;
-
                     var TIMER = setInterval(function () {
                         _Utils2.default.moveToScroll(MOVE_TO, contentItem);
                         counter += moveTo;
@@ -365,7 +364,8 @@ var OrcaSlide = function () {
                 contentItem.addEventListener("touchstart", function (action) {
                     var SWIPE = action.changedTouches[0];
                     startX = parseInt(SWIPE.clientX, 10);
-                });
+                    action.preventDefault();
+                }, false);
                 contentItem.addEventListener("touchmove", function (action) {
                     var SWIPE = action.changedTouches[0];
                     var direction = "";
@@ -384,7 +384,8 @@ var OrcaSlide = function () {
                         _this3.autoPlay(false);
                         _this3.animateSlide(false);
                     }
-                });
+                    action.preventDefault();
+                }, false);
             }
         }
 
@@ -496,13 +497,14 @@ var OrcaSlide = function () {
             var _this6 = this;
 
             var KEYS = ["arrowNext", "arrowPrevious", "contentItem"];
-            var callbacks = this.configSlide.callbacks;
+            var _configSlide6 = this.configSlide,
+                callbacks = _configSlide6.callbacks,
+                jump = _configSlide6.jump;
 
             KEYS.forEach(function (item) {
                 var SELECTOR = _this6.configSlide[item];
                 var ELEMENT = _Utils2.default.getElementDom(SELECTOR);
-                var DIVISOR = (_Utils2.default.isMobile === "desktop") ? 128 : 16;
-
+                var JUMP = _Utils2.default.isMobile === "desktop" ? 128 : jump;
                 if (ELEMENT) {
                     _this6.configSlide[item] = ELEMENT;
                     if (item === "contentItem") {
@@ -511,7 +513,7 @@ var OrcaSlide = function () {
                         var NEW_CONFIG = {
                             items: ELEMENT.children.length - 1,
                             itemWidth: ITEM_WIDTH,
-                            moveTo: Math.ceil(ITEM_WIDTH / DIVISOR),
+                            moveTo: Math.ceil(ITEM_WIDTH / JUMP),
                             scrollWidth: ELEMENT.scrollWidth || 0,
                             time: _this6.configSlide.time * 1000 / 512,
                             item: ITEM,
@@ -531,11 +533,11 @@ var OrcaSlide = function () {
     }, {
         key: "validateConfigAutoPlay",
         get: function get() {
-            var _configSlide6 = this.configSlide,
-                active = _configSlide6.active,
-                ctrlPlay = _configSlide6.ctrlPlay,
-                ctrlStop = _configSlide6.ctrlStop,
-                timeAutoPlay = _configSlide6.timeAutoPlay;
+            var _configSlide7 = this.configSlide,
+                active = _configSlide7.active,
+                ctrlPlay = _configSlide7.ctrlPlay,
+                ctrlStop = _configSlide7.ctrlStop,
+                timeAutoPlay = _configSlide7.timeAutoPlay;
 
 
             if (active) {
