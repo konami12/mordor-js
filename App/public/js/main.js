@@ -517,7 +517,7 @@ var OrcaSlide = function () {
                             itemWidth: ITEM_WIDTH,
                             moveTo: Math.ceil(ITEM_WIDTH / JUMP),
                             scrollWidth: ELEMENT.scrollWidth || 0,
-                            time: _this6.configSlide.time * 1000 / 512,
+                            time: _this6.configSlide.time * 1000 / 128,
                             item: ITEM,
                             content: ELEMENT
                         };
