@@ -9,11 +9,7 @@ document.onreadystatechange = () => {
             arrowNext: "#barrow_next",
             contentItem: "#bswipe",
             time: 1,
-<<<<<<< HEAD
             jump: 120,
-=======
-            jump: 64,
->>>>>>> 294060fa8d50eaa5694753a6c8ca47b988b6eaf9
         };
         OrcaSlide.config = {
             arrowPrevious: "#arrow_previus",
@@ -22,11 +18,7 @@ document.onreadystatechange = () => {
             ctrlPlay: "#play",
             contentItem: "#swipe",
             time: 1,
-<<<<<<< HEAD
             jump: 120,
-=======
-            jump: 64,
->>>>>>> 294060fa8d50eaa5694753a6c8ca47b988b6eaf9
             timeAutoPlay: 2.5,
             isInfinite: true,
         };
