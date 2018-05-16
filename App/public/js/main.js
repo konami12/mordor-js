@@ -80,6 +80,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
+           alert(1);
         _source2.default.config = {
             arrowPrevious: "#barrow_previus",
             arrowNext: "#barrow_next",
