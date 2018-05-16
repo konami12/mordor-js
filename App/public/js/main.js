@@ -507,7 +507,6 @@ var OrcaSlide = function () {
                 var SELECTOR = _this6.configSlide[item];
                 var ELEMENT = _Utils2.default.getElementDom(SELECTOR);
                 var JUMP = _Utils2.default.isMobile === "desktop" ? 128 : jump;
-                console.log(JUMP);
                 if (ELEMENT) {
                     _this6.configSlide[item] = ELEMENT;
                     if (item === "contentItem") {
