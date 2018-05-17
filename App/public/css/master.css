@@ -9,12 +9,12 @@
   font-size: 0;
   height: 300px;
   margin: 10px auto;
-  width: 450px; }
+  width: 320px; }
   .Wrapper__ArrowContent {
     display: inline-block;
     height: 100%;
     vertical-align: top;
-    width: 5%; }
+    width: 10%; }
   .Wrapper__Arrow, .Wrapper__Arrow-next, .Wrapper__Arrow-previus {
     background-repeat: no-repeat;
     background-position: center center;

@@ -86,16 +86,6 @@ document.onreadystatechange = function () {
             contentItem: "#bswipe",
             time: 1
         };
-        _source2.default.config = {
-            arrowPrevious: "#arrow_previus",
-            arrowNext: "#arrow_next",
-            ctrlStop: "#stop",
-            ctrlPlay: "#play",
-            contentItem: "#swipe",
-            time: 1,
-            timeAutoPlay: 2.5,
-            isInfinite: true
-        };
     }
 };
 // import OrcaSlide from "./core/mordor";
@@ -129,11 +119,22 @@ var Config = {
     contentItem: "",
     ctrlStop: "",
     ctrlPlay: "",
+    jump: 120,
     time: 1,
     timeAutoPlay: 2,
     isInfinite: false,
     position: 0,
-    active: false
+    active: false,
+    swipeConfig: {
+        startX: 0,
+        startY: 0,
+        endX: 0,
+        endY: 0,
+        min_x: 20,
+        max_x: 40,
+        min_y: 40,
+        max_y: 50
+    }
 };
 
 /**
@@ -221,8 +222,7 @@ var OrcaSlide = function () {
                 moveTo = _configSlide.moveTo,
                 time = _configSlide.time,
                 position = _configSlide.position,
-                isInfinite = _configSlide.isInfinite,
-                content = _configSlide.content;
+                isInfinite = _configSlide.isInfinite;
 
 
             var MOVE_TO = isNext ? moveTo : -moveTo;
@@ -237,7 +237,6 @@ var OrcaSlide = function () {
                     this.configSlide.active = false;
                     this.isInfinite = ACTUAL_POSITION;
                     var counter = 0;
-                    content.style.scrollBehavior = "smooth";
                     var TIMER = setInterval(function () {
                         _Utils2.default.moveToScroll(MOVE_TO, contentItem);
                         counter += moveTo;
@@ -246,7 +245,6 @@ var OrcaSlide = function () {
                             var FULL_MOVE_TO = itemWidth * _this.configSlide.position;
                             _Utils2.default.moveToScroll(FULL_MOVE_TO, contentItem, false);
                             _this.configSlide.active = true;
-                            content.style.scrollBehavior = "";
                         }
                     }, time);
                 }
@@ -359,23 +357,45 @@ var OrcaSlide = function () {
             var DEVICE = _Utils2.default.isMobile;
             var _configSlide4 = this.configSlide,
                 contentItem = _configSlide4.contentItem,
-                items = _configSlide4.items;
+                items = _configSlide4.items,
+                swipeConfig = _configSlide4.swipeConfig;
 
             if (DEVICE !== "desktop") {
-                var startX = 0;
+                var SWIPE = swipeConfig;
                 contentItem.addEventListener("touchstart", function (action) {
-                    var SWIPE = action.changedTouches[0];
-                    startX = parseInt(SWIPE.clientX, 10);
-                });
-                contentItem.addEventListener("touchmove", function (action) {
-                    var SWIPE = action.changedTouches[0];
-                    var direction = "";
-                    var swipeX = parseInt(SWIPE.clientX, 10);
+                    action.preventDefault();
+                    var TOUCH = _Utils2.default.existFields(action, "touches.0", null);
+                    if (TOUCH) {
+                        SWIPE.startX = TOUCH.screenX;
+                        SWIPE.startY = TOUCH.screenY;
+                    }
+                }, false);
 
-                    if (swipeX - startX > 0) {
-                        direction = "right";
-                    } else {
-                        direction = "left";
+                contentItem.addEventListener("touchmove", function (action) {
+                    action.preventDefault();
+                    var TOUCH = _Utils2.default.existFields(action, "touches.0", null);
+                    if (TOUCH) {
+                        SWIPE.endX = TOUCH.screenX;
+                        SWIPE.endY = TOUCH.screenY;
+                    }
+                }, false);
+
+                contentItem.addEventListener("touchend", function () {
+                    var direction = "";
+                    var HZR_X1 = SWIPE.endX - SWIPE.min_x > SWIPE.startX;
+                    var HZR_X2 = SWIPE.endX + SWIPE.min_x < SWIPE.startX;
+                    var HZR_Y1 = SWIPE.endY < SWIPE.startY + SWIPE.max_y;
+                    var HZR_Y2 = SWIPE.startY > SWIPE.endY - SWIPE.max_y;
+
+                    var VERT_Y1 = SWIPE.endY - SWIPE.min_y > SWIPE.startY;
+                    var VERT_Y2 = SWIPE.endY + SWIPE.min_y < SWIPE.startY;
+                    var VERT_X1 = SWIPE.endX < SWIPE.startX + SWIPE.max_x;
+                    var VERT_X2 = SWIPE.startX > SWIPE.endX - SWIPE.max_x;
+
+                    if ((HZR_X1 || HZR_X2) && HZR_Y1 && HZR_Y2) {
+                        direction = SWIPE.endX > SWIPE.startX ? "right" : "left";
+                    } else if ((VERT_Y1 || VERT_Y2) && VERT_X1 && VERT_X2) {
+                        direction = SWIPE.endY > SWIPE.startY ? "bottom" : "top";
                     }
 
                     if (direction === "left" && _this3.configSlide.position < items) {
@@ -385,7 +405,7 @@ var OrcaSlide = function () {
                         _this3.autoPlay(false);
                         _this3.animateSlide(false);
                     }
-                });
+                }, false);
             }
         }
 
@@ -497,12 +517,14 @@ var OrcaSlide = function () {
             var _this6 = this;
 
             var KEYS = ["arrowNext", "arrowPrevious", "contentItem"];
-            var callbacks = this.configSlide.callbacks;
+            var _configSlide6 = this.configSlide,
+                callbacks = _configSlide6.callbacks,
+                jump = _configSlide6.jump;
 
             KEYS.forEach(function (item) {
                 var SELECTOR = _this6.configSlide[item];
                 var ELEMENT = _Utils2.default.getElementDom(SELECTOR);
-
+                var JUMP = _Utils2.default.isMobile === "desktop" ? 128 : jump;
                 if (ELEMENT) {
                     _this6.configSlide[item] = ELEMENT;
                     if (item === "contentItem") {
@@ -511,7 +533,7 @@ var OrcaSlide = function () {
                         var NEW_CONFIG = {
                             items: ELEMENT.children.length - 1,
                             itemWidth: ITEM_WIDTH,
-                            moveTo: Math.ceil(ITEM_WIDTH / 128),
+                            moveTo: Math.ceil(ITEM_WIDTH / JUMP),
                             scrollWidth: ELEMENT.scrollWidth || 0,
                             time: _this6.configSlide.time * 1000 / 512,
                             item: ITEM,
@@ -531,11 +553,11 @@ var OrcaSlide = function () {
     }, {
         key: "validateConfigAutoPlay",
         get: function get() {
-            var _configSlide6 = this.configSlide,
-                active = _configSlide6.active,
-                ctrlPlay = _configSlide6.ctrlPlay,
-                ctrlStop = _configSlide6.ctrlStop,
-                timeAutoPlay = _configSlide6.timeAutoPlay;
+            var _configSlide7 = this.configSlide,
+                active = _configSlide7.active,
+                ctrlPlay = _configSlide7.ctrlPlay,
+                ctrlStop = _configSlide7.ctrlStop,
+                timeAutoPlay = _configSlide7.timeAutoPlay;
 
 
             if (active) {
