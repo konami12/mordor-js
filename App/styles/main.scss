@@ -1,5 +1,5 @@
 * {
-    font-size: 0;
+    font-size: 40px;
     padding: 0;
     margin: 0;
 }
@@ -17,14 +17,14 @@
         vertical-align: top;
         width: 5%;
     }
-    
+
     &__Arrow {
         background-repeat: no-repeat;
         background-position: center center;
         background-size: 80%;
         cursor: pointer;
         height: 100%;
-        width: 100%;    
+        width: 100%;
         &-next {
             @extend .Wrapper__Arrow;
             background-image: url("../img/next.png");
@@ -47,7 +47,7 @@
             overflow: hidden;
             width: 100%;
         }
-        
+
         &-item {
             background-color: #2AA198;
             color: white;
