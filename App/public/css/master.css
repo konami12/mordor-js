@@ -7,7 +7,7 @@
   background-color: #272822;
   display: flex;
   font-size: 0;
-  height: 300px;
+  height: 240px;
   margin: 10px auto;
   width: 320px; }
   .Wrapper__ArrowContent {
@@ -49,6 +49,8 @@
       width: 100%; }
       .Wrapper__Conent-item:nth-child(2n) {
         background-color: #268BD2; }
+      .Wrapper__Conent-item:nth-child(3n) {
+        background-color: red; }
       .Wrapper__Conent-item img {
         height: 100%;
         width: 100%; }

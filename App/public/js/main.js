@@ -80,11 +80,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
+           alert(2);
         _source2.default.config = {
             arrowPrevious: "#barrow_previus",
             arrowNext: "#barrow_next",
             contentItem: "#bswipe",
-            time: 1
+            time: 1,
+            jump: 120
         };
     }
 };
@@ -120,10 +122,14 @@ var Config = {
     ctrlStop: "",
     ctrlPlay: "",
 <<<<<<< HEAD
+<<<<<<< HEAD
     jump: 64,
 =======
     jump: 120,
 >>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
+=======
+    jump: 16,
+>>>>>>> c4428950e3df31f66adcad0189a3eed626cc67b5
     time: 1,
     timeAutoPlay: 2,
     isInfinite: false,
@@ -232,7 +238,10 @@ var OrcaSlide = function () {
                 position = _configSlide.position,
                 isInfinite = _configSlide.isInfinite;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> c4428950e3df31f66adcad0189a3eed626cc67b5
 
 >>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
 
@@ -374,6 +383,7 @@ var OrcaSlide = function () {
                 var SWIPE = swipeConfig;
                 contentItem.addEventListener("touchstart", function (action) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     action.preventDefault();
 >>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
@@ -384,6 +394,12 @@ var OrcaSlide = function () {
                     }
                 }, false);
 
+=======
+                    var SWIPE = action.changedTouches[0];
+                    startX = parseInt(SWIPE.clientX, 10);
+                    action.preventDefault();
+                }, false);
+>>>>>>> c4428950e3df31f66adcad0189a3eed626cc67b5
                 contentItem.addEventListener("touchmove", function (action) {
 <<<<<<< HEAD
 =======
@@ -442,6 +458,10 @@ var OrcaSlide = function () {
                         _this3.autoPlay(false);
                         _this3.animateSlide(false);
                     }
+<<<<<<< HEAD
+=======
+                    action.preventDefault();
+>>>>>>> c4428950e3df31f66adcad0189a3eed626cc67b5
                 }, false);
             }
         }
@@ -572,7 +592,7 @@ var OrcaSlide = function () {
                             itemWidth: ITEM_WIDTH,
                             moveTo: Math.ceil(ITEM_WIDTH / JUMP),
                             scrollWidth: ELEMENT.scrollWidth || 0,
-                            time: _this6.configSlide.time * 1000 / 512,
+                            time: _this6.configSlide.time * 1000 / 256,
                             item: ITEM,
                             content: ELEMENT
                         };

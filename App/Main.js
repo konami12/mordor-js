@@ -9,6 +9,7 @@ document.onreadystatechange = () => {
             arrowNext: "#barrow_next",
             contentItem: "#bswipe",
             time: 1,
+            jump: 120,
         };
     }
 };
