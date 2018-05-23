@@ -80,7 +80,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
-           alert(2);
         _source2.default.config = {
             arrowPrevious: "#barrow_previus",
             arrowNext: "#barrow_next",
@@ -121,25 +120,14 @@ var Config = {
     contentItem: "",
     ctrlStop: "",
     ctrlPlay: "",
-<<<<<<< HEAD
-<<<<<<< HEAD
     jump: 64,
-=======
-    jump: 120,
->>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
-=======
-    jump: 16,
->>>>>>> c4428950e3df31f66adcad0189a3eed626cc67b5
     time: 1,
     timeAutoPlay: 2,
     isInfinite: false,
     position: 0,
     active: false,
     swipeConfig: {
-<<<<<<< HEAD
         direction: "",
-=======
->>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
         startX: 0,
         startY: 0,
         endX: 0,
@@ -237,13 +225,6 @@ var OrcaSlide = function () {
                 time = _configSlide.time,
                 position = _configSlide.position,
                 isInfinite = _configSlide.isInfinite;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> c4428950e3df31f66adcad0189a3eed626cc67b5
-
->>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
 
             var MOVE_TO = isNext ? moveTo : -moveTo;
             var ACTUAL_POSITION = isNext ? position + 1 : position - 1;
@@ -382,11 +363,6 @@ var OrcaSlide = function () {
             if (DEVICE !== "desktop") {
                 var SWIPE = swipeConfig;
                 contentItem.addEventListener("touchstart", function (action) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                    action.preventDefault();
->>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
                     var TOUCH = _Utils2.default.existFields(action, "touches.0", null);
                     if (TOUCH) {
                         SWIPE.startX = TOUCH.screenX;
@@ -394,22 +370,11 @@ var OrcaSlide = function () {
                     }
                 }, false);
 
-=======
-                    var SWIPE = action.changedTouches[0];
-                    startX = parseInt(SWIPE.clientX, 10);
-                    action.preventDefault();
-                }, false);
->>>>>>> c4428950e3df31f66adcad0189a3eed626cc67b5
                 contentItem.addEventListener("touchmove", function (action) {
-<<<<<<< HEAD
-=======
-                    action.preventDefault();
->>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
                     var TOUCH = _Utils2.default.existFields(action, "touches.0", null);
                     if (TOUCH) {
                         SWIPE.endX = TOUCH.screenX;
                         SWIPE.endY = TOUCH.screenY;
-<<<<<<< HEAD
                         var HZR_X1 = SWIPE.endX - SWIPE.min_x > SWIPE.startX;
                         var HZR_X2 = SWIPE.endX + SWIPE.min_x < SWIPE.startX;
                         var HZR_Y1 = SWIPE.endY < SWIPE.startY + SWIPE.max_y;
@@ -425,32 +390,10 @@ var OrcaSlide = function () {
                         } else if ((VERT_Y1 || VERT_Y2) && VERT_X1 && VERT_X2) {
                             SWIPE.direction = SWIPE.endY > SWIPE.startY ? "bottom" : "top";
                         }
-=======
                     }
                 }, false);
 
                 contentItem.addEventListener("touchend", function () {
-                    var direction = "";
-                    var HZR_X1 = SWIPE.endX - SWIPE.min_x > SWIPE.startX;
-                    var HZR_X2 = SWIPE.endX + SWIPE.min_x < SWIPE.startX;
-                    var HZR_Y1 = SWIPE.endY < SWIPE.startY + SWIPE.max_y;
-                    var HZR_Y2 = SWIPE.startY > SWIPE.endY - SWIPE.max_y;
-
-                    var VERT_Y1 = SWIPE.endY - SWIPE.min_y > SWIPE.startY;
-                    var VERT_Y2 = SWIPE.endY + SWIPE.min_y < SWIPE.startY;
-                    var VERT_X1 = SWIPE.endX < SWIPE.startX + SWIPE.max_x;
-                    var VERT_X2 = SWIPE.startX > SWIPE.endX - SWIPE.max_x;
-
-                    if ((HZR_X1 || HZR_X2) && HZR_Y1 && HZR_Y2) {
-                        direction = SWIPE.endX > SWIPE.startX ? "right" : "left";
-                    } else if ((VERT_Y1 || VERT_Y2) && VERT_X1 && VERT_X2) {
-                        direction = SWIPE.endY > SWIPE.startY ? "bottom" : "top";
->>>>>>> c8503205e2d9d9babf412830548a561ffe5d6980
-                    }
-                }, false);
-
-                contentItem.addEventListener("touchend", function (action) {
-                    action.preventDefault();
                     if (SWIPE.direction === "left" && _this3.configSlide.position < items) {
                         _this3.autoPlay(false);
                         _this3.animateSlide(true);
@@ -458,10 +401,6 @@ var OrcaSlide = function () {
                         _this3.autoPlay(false);
                         _this3.animateSlide(false);
                     }
-<<<<<<< HEAD
-=======
-                    action.preventDefault();
->>>>>>> c4428950e3df31f66adcad0189a3eed626cc67b5
                 }, false);
             }
         }
@@ -592,7 +531,7 @@ var OrcaSlide = function () {
                             itemWidth: ITEM_WIDTH,
                             moveTo: Math.ceil(ITEM_WIDTH / JUMP),
                             scrollWidth: ELEMENT.scrollWidth || 0,
-                            time: _this6.configSlide.time * 1000 / 256,
+                            time: _this6.configSlide.time * 1000 / 512,
                             item: ITEM,
                             content: ELEMENT
                         };
