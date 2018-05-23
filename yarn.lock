@@ -3344,9 +3344,9 @@ once@^1.3.0, once@^1.3.3:
   dependencies:
     wrappy "1"
 
-orcaslide@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/orcaslide/-/orcaslide-0.2.0.tgz#ad59385fe32aef3350989bbbfa9c97703054280a"
+orcaslide@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/orcaslide/-/orcaslide-0.6.1.tgz#c7a76f11e2d4e4148e731182ec90d0e79de51511"
 
 os-browserify@^0.3.0:
   version "0.3.0"

@@ -37,6 +37,6 @@
     },
     "dependencies": {
         "express": "^4.16.3",
-        "orcaslide": "^0.2.0"
+        "orcaslide": "^0.6.1"
     }
 }
