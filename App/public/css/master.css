@@ -3,6 +3,21 @@
   padding: 0;
   margin: 0; }
 
+p {
+  display: block;
+  font-size: 12px;
+  width: 80; }
+
+.Wrapper_text {
+  background-color: #272822;
+  color: white;
+  display: flex;
+  font-size: 0;
+  height: 240px;
+  margin: 10px auto;
+  width: 320px;
+  font-size: 20px; }
+
 .Wrapper, .Wrapper-buttons {
   background-color: #272822;
   display: flex;

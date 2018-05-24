@@ -85,7 +85,22 @@ document.onreadystatechange = function () {
             arrowNext: "#barrow_next",
             contentItem: "#bswipe",
             time: 1,
-            jump: 120
+            isInfinite: true,
+            jump: 64
+        };
+        _source2.default.config = {
+            arrowPrevious: "#carrow_previus",
+            arrowNext: "#carrow_next",
+            contentItem: "#cswipe",
+            time: 1,
+            jump: 64
+        };
+        _source2.default.config = {
+            arrowPrevious: "#darrow_previus",
+            arrowNext: "#darrow_next",
+            contentItem: "#dswipe",
+            time: 1,
+            jump: 128
         };
     }
 };
@@ -357,7 +372,6 @@ var OrcaSlide = function () {
             var DEVICE = _Utils2.default.isMobile;
             var _configSlide4 = this.configSlide,
                 contentItem = _configSlide4.contentItem,
-                items = _configSlide4.items,
                 swipeConfig = _configSlide4.swipeConfig;
 
             if (DEVICE !== "desktop") {
@@ -375,32 +389,14 @@ var OrcaSlide = function () {
                     if (TOUCH) {
                         SWIPE.endX = TOUCH.screenX;
                         SWIPE.endY = TOUCH.screenY;
-                        var HZR_X1 = SWIPE.endX - SWIPE.min_x > SWIPE.startX;
-                        var HZR_X2 = SWIPE.endX + SWIPE.min_x < SWIPE.startX;
-                        var HZR_Y1 = SWIPE.endY < SWIPE.startY + SWIPE.max_y;
-                        var HZR_Y2 = SWIPE.startY > SWIPE.endY - SWIPE.max_y;
-
-                        var VERT_Y1 = SWIPE.endY - SWIPE.min_y > SWIPE.startY;
-                        var VERT_Y2 = SWIPE.endY + SWIPE.min_y < SWIPE.startY;
-                        var VERT_X1 = SWIPE.endX < SWIPE.startX + SWIPE.max_x;
-                        var VERT_X2 = SWIPE.startX > SWIPE.endX - SWIPE.max_x;
-
-                        if ((HZR_X1 || HZR_X2) && HZR_Y1 && HZR_Y2) {
-                            SWIPE.direction = SWIPE.endX > SWIPE.startX ? "right" : "left";
-                        } else if ((VERT_Y1 || VERT_Y2) && VERT_X1 && VERT_X2) {
-                            SWIPE.direction = SWIPE.endY > SWIPE.startY ? "bottom" : "top";
-                        }
+                        SWIPE.direction = _Utils2.default.getDirecctionSlide(SWIPE);
                     }
                 }, false);
 
                 contentItem.addEventListener("touchend", function () {
-                    if (SWIPE.direction === "left" && _this3.configSlide.position < items) {
-                        _this3.autoPlay(false);
-                        _this3.animateSlide(true);
-                    } else if (SWIPE.direction === "right" && _this3.configSlide.position > 0) {
-                        _this3.autoPlay(false);
-                        _this3.animateSlide(false);
-                    }
+                    var IS_LEFT = SWIPE.direction === "left";
+                    _this3.autoPlay(false);
+                    _this3.animateSlide(IS_LEFT);
                 }, false);
             }
         }
@@ -441,7 +437,6 @@ var OrcaSlide = function () {
         /**
          * Evita que al redimensionar el navegador se tengan problemas con los slides.
          *
-         * @return self Fluent interface.
          */
 
     }, {
@@ -452,11 +447,11 @@ var OrcaSlide = function () {
             var CONFIG = this.configSlide;
             var ITEM = _Utils2.default.existFields(CONFIG, "item", null);
             var ELEMENT = _Utils2.default.existFields(CONFIG, "content", null);
-
+            var JUMP = _Utils2.default.isMobile === "desktop" ? 128 : CONFIG.jump;
             if (ITEM !== null && ELEMENT !== null) {
                 window.addEventListener("resize", function () {
                     _this4.configSlide.scrollWidth = ELEMENT.scrollWidth;
-                    _this4.configSlide.moveTo = Math.ceil(ITEM.offsetWidth / 256);
+                    _this4.configSlide.moveTo = Math.ceil(ITEM.offsetWidth / JUMP);
                     _this4.configSlide.itemWidth = ITEM.offsetWidth;
                     var POST = ITEM.offsetWidth * _this4.configSlide.position;
                     _Utils2.default.moveToScroll(POST, CONFIG.contentItem, false);
@@ -504,7 +499,6 @@ var OrcaSlide = function () {
          *
          * @type {Object} Resive la configuracion base.
          *
-         * @return self Fluent interface.
          */
 
     }, {
@@ -546,6 +540,13 @@ var OrcaSlide = function () {
             this.configSlide.callbacks = _Utils2.default.getCallbacksConfig(callbacks);
             return this.validateConfigAutoPlay;
         }
+
+        /**
+         * Permite validar la configuracion para el auto play.
+         *
+         * @return self Fluent interface.
+         */
+
     }, {
         key: "validateConfigAutoPlay",
         get: function get() {
@@ -745,6 +746,40 @@ var Utils = function () {
             }, {});
 
             return CALLBACKS;
+        }
+
+        /**
+         * Permite conseguir la direccion en la que se reliza el swipe.
+         *
+         * @param  {object} swipe configuracion base para el swipe.
+         * @return {string}
+         */
+
+    }, {
+        key: "getDirecctionSlide",
+        value: function getDirecctionSlide(swipe) {
+            var HZR_X1 = swipe.endX - swipe.min_x > swipe.startX;
+            var HZR_X2 = swipe.endX + swipe.min_x < swipe.startX;
+            var HZR_Y1 = swipe.endY < swipe.startY + swipe.max_y;
+            var HZR_Y2 = swipe.startY > swipe.endY - swipe.max_y;
+
+            var VERT_Y1 = swipe.endY - swipe.min_y > swipe.startY;
+            var VERT_Y2 = swipe.endY + swipe.min_y < swipe.startY;
+            var VERT_X1 = swipe.endX < swipe.startX + swipe.max_x;
+            var VERT_X2 = swipe.startX > swipe.endX - swipe.max_x;
+
+            var IS_HORIZONTAL = (HZR_X1 || HZR_X2) && HZR_Y1 && HZR_Y2;
+            var IS_VERTICAL = (VERT_Y1 || VERT_Y2) && VERT_X1 && VERT_X2;
+
+            var direction = "";
+
+            if (IS_HORIZONTAL) {
+                direction = swipe.endX > swipe.startX ? "right" : "left";
+            } else if (IS_VERTICAL) {
+                direction = swipe.endY > swipe.startY ? "bottom" : "top";
+            }
+
+            return direction;
         }
     }, {
         key: "isMobile",

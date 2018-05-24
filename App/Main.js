@@ -9,7 +9,22 @@ document.onreadystatechange = () => {
             arrowNext: "#barrow_next",
             contentItem: "#bswipe",
             time: 1,
-            jump: 120,
+            isInfinite: true,
+            jump: 64,
+        };
+        OrcaSlide.config = {
+            arrowPrevious: "#carrow_previus",
+            arrowNext: "#carrow_next",
+            contentItem: "#cswipe",
+            time: 1,
+            jump: 64,
+        };
+        OrcaSlide.config = {
+            arrowPrevious: "#darrow_previus",
+            arrowNext: "#darrow_next",
+            contentItem: "#dswipe",
+            time: 1,
+            jump: 128,
         };
     }
 };
