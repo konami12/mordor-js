@@ -70,9 +70,9 @@
 "use strict";
 
 
-var _source = __webpack_require__(1);
+var _orcaslide = __webpack_require__(1);
 
-var _source2 = _interopRequireDefault(_source);
+var _orcaslide2 = _interopRequireDefault(_orcaslide);
 
 __webpack_require__(4);
 
@@ -80,7 +80,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 document.onreadystatechange = function () {
     if (document.readyState === "complete") {
-        _source2.default.config = {
+        _orcaslide2.default.config = {
             arrowPrevious: "#barrow_previus",
             arrowNext: "#barrow_next",
             contentItem: "#bswipe",
@@ -88,14 +88,14 @@ document.onreadystatechange = function () {
             isInfinite: true,
             jump: 64
         };
-        _source2.default.config = {
+        _orcaslide2.default.config = {
             arrowPrevious: "#carrow_previus",
             arrowNext: "#carrow_next",
             contentItem: "#cswipe",
             time: 1,
             jump: 64
         };
-        _source2.default.config = {
+        _orcaslide2.default.config = {
             arrowPrevious: "#darrow_previus",
             arrowNext: "#darrow_next",
             contentItem: "#dswipe",
@@ -104,7 +104,6 @@ document.onreadystatechange = function () {
         };
     }
 };
-// import OrcaSlide from "./core/mordor";
 
 /***/ }),
 /* 1 */
@@ -112,72 +111,29 @@ document.onreadystatechange = function () {
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _OrcaSlide = __webpack_require__(2);
-
-var _OrcaSlide2 = _interopRequireDefault(_OrcaSlide);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Config = {
-    arrowNext: "",
-    arrowPrevious: "",
-    autoPlay: false,
-    callbacks: [],
-    contentItem: "",
-    ctrlStop: "",
-    ctrlPlay: "",
-    jump: 64,
-    time: 1,
-    timeAutoPlay: 2,
-    isInfinite: false,
-    position: 0,
-    active: false,
-    swipeConfig: {
-        direction: "",
-        startX: 0,
-        startY: 0,
-        endX: 0,
-        endY: 0,
-        min_x: 20,
-        max_x: 40,
-        min_y: 40,
-        max_y: 50
+Object.defineProperty(exports, "__esModule", { value: !0 });var _createClass = function () {
+  function a(a, b) {
+    for (var c, d = 0; d < b.length; d++) {
+      c = b[d], c.enumerable = c.enumerable || !1, c.configurable = !0, "value" in c && (c.writable = !0), Object.defineProperty(a, c.key, c);
     }
-};
-
-/**
- * Permite inicializar orcaslide con un nuevo
- * scope.
- */
-
-var initOrcaSlide = function () {
-    function initOrcaSlide() {
-        _classCallCheck(this, initOrcaSlide);
-    }
-
-    _createClass(initOrcaSlide, null, [{
-        key: "config",
-        set: function set(config) {
-            var CONFIG = JSON.stringify(Config);
-            var NEW_CONFIG = JSON.parse(CONFIG);
-            Object.assign(NEW_CONFIG, config);
-            return new _OrcaSlide2.default(NEW_CONFIG);
-        }
-    }]);
-
-    return initOrcaSlide;
-}();
-
-exports.default = initOrcaSlide;
+  }return function (b, c, d) {
+    return c && a(b.prototype, c), d && a(b, d), b;
+  };
+}(),
+    _OrcaSlide = __webpack_require__(2),
+    _OrcaSlide2 = _interopRequireDefault(_OrcaSlide);function _interopRequireDefault(a) {
+  return a && a.__esModule ? a : { default: a };
+}function _classCallCheck(a, b) {
+  if (!(a instanceof b)) throw new TypeError("Cannot call a class as a function");
+}var Config = { arrowNext: "", arrowPrevious: "", autoPlay: !1, callbacks: [], contentItem: "", ctrlStop: "", ctrlPlay: "", jump: 64, time: 1, timeAutoPlay: 2, isInfinite: !1, position: 0, active: !1, swipeConfig: { direction: "", startX: 0, startY: 0, endX: 0, endY: 0, min_x: 20, max_x: 40, min_y: 40, max_y: 50 } },
+    initOrcaSlide = function () {
+  function a() {
+    _classCallCheck(this, a);
+  }return _createClass(a, null, [{ key: "config", set: function set(a) {
+      var b = JSON.stringify(Config),
+          c = JSON.parse(b);return Object.assign(c, a), new _OrcaSlide2.default(c);
+    } }]), a;
+}();exports.default = initOrcaSlide;
 
 /***/ }),
 /* 2 */
@@ -185,394 +141,145 @@ exports.default = initOrcaSlide;
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Utils = __webpack_require__(3);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var OrcaSlide = function () {
-    /**
-     * Metodo inicial encargado de validar la configuracion.
-     *
-     * @param {object} configuracion inicial.
-     *
-     * @return {void}
-     */
-    function OrcaSlide(config) {
-        _classCallCheck(this, OrcaSlide);
-
-        this.configSlide = config;
-        this.autoPlayTimer = null;
-        this.initSlider();
+Object.defineProperty(exports, "__esModule", { value: !0 });var _createClass = function () {
+  function a(a, b) {
+    for (var c, d = 0; d < b.length; d++) {
+      c = b[d], c.enumerable = c.enumerable || !1, c.configurable = !0, "value" in c && (c.writable = !0), Object.defineProperty(a, c.key, c);
     }
-
-    /**
-     * Genera la transicion de los sliders.
-     *
-     * @param  {Boolean} isNext (Optional) indica el tipo de accion.
-     *
-     * @return void.
-     */
-
-
-    _createClass(OrcaSlide, [{
-        key: "animateSlide",
-        value: function animateSlide() {
-            var _this = this;
-
-            var isNext = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-            var _configSlide = this.configSlide,
-                active = _configSlide.active,
-                contentItem = _configSlide.contentItem,
-                itemWidth = _configSlide.itemWidth,
-                items = _configSlide.items,
-                moveTo = _configSlide.moveTo,
-                time = _configSlide.time,
-                position = _configSlide.position,
-                isInfinite = _configSlide.isInfinite;
-
-            var MOVE_TO = isNext ? moveTo : -moveTo;
-            var ACTUAL_POSITION = isNext ? position + 1 : position - 1;
-            var INFINITE = items < ACTUAL_POSITION || ACTUAL_POSITION < 0;
-            if (active) {
-                this.callbacks(isNext, ACTUAL_POSITION);
-                if (isInfinite && INFINITE) {
-                    this.isInfinite = ACTUAL_POSITION;
-                } else if (!INFINITE) {
-                    this.configSlide.position += isNext ? 1 : -1;
-                    this.configSlide.active = false;
-                    this.isInfinite = ACTUAL_POSITION;
-                    var counter = 0;
-                    var TIMER = setInterval(function () {
-                        _Utils2.default.moveToScroll(MOVE_TO, contentItem);
-                        counter += moveTo;
-                        if (counter >= itemWidth) {
-                            clearInterval(TIMER);
-                            var FULL_MOVE_TO = itemWidth * _this.configSlide.position;
-                            _Utils2.default.moveToScroll(FULL_MOVE_TO, contentItem, false);
-                            _this.configSlide.active = true;
-                        }
-                    }, time);
-                }
-            }
+  }return function (b, c, d) {
+    return c && a(b.prototype, c), d && a(b, d), b;
+  };
+}(),
+    _Utils = __webpack_require__(3),
+    _Utils2 = _interopRequireDefault(_Utils);function _interopRequireDefault(a) {
+  return a && a.__esModule ? a : { default: a };
+}function _classCallCheck(a, b) {
+  if (!(a instanceof b)) throw new TypeError("Cannot call a class as a function");
+}var OrcaSlide = function () {
+  function a(b) {
+    _classCallCheck(this, a), this.configSlide = b, this.autoPlayTimer = null, this.initSlider();
+  }var b = Math.ceil;return _createClass(a, [{ key: "animateSlide", value: function value() {
+      var a = this,
+          b = !(0 < arguments.length && void 0 !== arguments[0]) || arguments[0],
+          c = this.configSlide,
+          d = c.active,
+          e = c.contentItem,
+          f = c.itemWidth,
+          g = c.items,
+          h = c.moveTo,
+          i = c.time,
+          j = c.position,
+          k = c.isInfinite,
+          l = b ? h : -h,
+          m = b ? j + 1 : j - 1,
+          n = g < m || 0 > m;if (d) if (this.callbacks(b, m), k && n) this.isInfinite = m;else if (!n) {
+        this.configSlide.position += b ? 1 : -1, this.configSlide.active = !1, this.isInfinite = m;var o = 0,
+            p = setInterval(function () {
+          if (_Utils2.default.moveToScroll(l, e), o += h, o >= f) {
+            clearInterval(p);var b = f * a.configSlide.position;_Utils2.default.moveToScroll(b, e, !1), a.configSlide.active = !0;
+          }
+        }, i);
+      }
+    } }, { key: "autoPlay", value: function a() {
+      var b = this,
+          c = !(0 < arguments.length && void 0 !== arguments[0]) || arguments[0];this.configSlide.autoPlay = c;var d = this.configSlide,
+          a = d.autoPlay,
+          e = d.timeAutoPlay;c || a ? c && a && (this.autoPlayTimer = setInterval(function () {
+        b.animateSlide();
+      }, e)) : clearInterval(this.autoPlayTimer);
+    } }, { key: "callbacks", value: function a(b, c) {
+      var d = this.configSlide,
+          a = d.callbacks,
+          e = d.items,
+          f = b ? c - 1 : c + 1,
+          g = a["Slide" + f] || null;if (g) {
+        var h = g.next === b || g.previus && !b,
+            i = g.next === b ? "next" : "previus",
+            j = "next" === i ? f + 1 : f - 1;j = 0 > j ? e : j, j = j > e ? 0 : j;try {
+          var k = { action: i, slide: j, lastSlide: f };h && g.callback(k);
+        } catch (a) {
+          console.groupCollapsed("%c \uD83D\uDEAB [OrcaSlide => Error]", "color:#FFF;"), console.error(a), console.groupEnd("[OrcaSlide => Error]");
         }
-
-        /**
-         * Permite el manejo de la accion autoPlay.
-         *
-         * @param  {Boolean} (Optional) Indica si el carousel esten autoPlay.
-         * @return {void}.
-         */
-
-    }, {
-        key: "autoPlay",
-        value: function autoPlay() {
-            var _this2 = this;
-
-            var play = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-
-            this.configSlide.autoPlay = play;
-            var _configSlide2 = this.configSlide,
-                autoPlay = _configSlide2.autoPlay,
-                timeAutoPlay = _configSlide2.timeAutoPlay;
-
-            if (!play && !autoPlay) {
-                clearInterval(this.autoPlayTimer);
-            } else if (play && autoPlay) {
-                this.autoPlayTimer = setInterval(function () {
-                    _this2.animateSlide();
-                }, timeAutoPlay);
-            }
+      }
+    } }, { key: "displayArrow", value: function value(a) {
+      var b = this.configSlide,
+          c = b.autoPlay,
+          d = b.arrowNext,
+          e = b.arrowPrevious,
+          f = b.items,
+          g = b.isInfinite,
+          h = 0 < a ? "" : "none",
+          i = f === a ? "none" : "";_Utils2.default.displayToggle(d, i), _Utils2.default.displayToggle(e, h), c && !g && "none" === i && this.autoPlay(!1);
+    } }, { key: "initSlider", value: function value() {
+      return this.validateConfig.setActionButton.resizeSlide.startTouch(), this.configSlide.autoPlay && this.autoPlay(), 0;
+    } }, { key: "startTouch", value: function value() {
+      var a = this,
+          b = _Utils2.default.isMobile,
+          c = this.configSlide,
+          d = c.contentItem,
+          e = c.swipeConfig;if ("desktop" !== b) {
+        var f = e,
+            g = void 0;d.addEventListener("touchstart", function (a) {
+          var b = _Utils2.default.existFields(a, "touches.0", null);g = 0, b && (f.startX = b.screenX, f.startY = b.screenY);
+        }, !1), d.addEventListener("touchmove", function (a) {
+          var b = _Utils2.default.existFields(a, "touches.0", null);b && (f.endX = b.screenX, g = 0 <= f.startX - f.endX ? f.startX - f.endX : -1 * (f.startX - f.endX), f.endY = b.screenY, f.direction = _Utils2.default.getDirecctionSlide(f));
+        }, !1), d.addEventListener("touchend", function () {
+          var b = "left" === f.direction;a.autoPlay(!1), 60 < g && a.animateSlide(b);
+        }, !1);
+      }
+    } }, { key: "isInfinite", set: function set(a) {
+      var b = this.configSlide,
+          c = b.contentItem,
+          d = b.isInfinite,
+          e = b.items,
+          f = b.itemWidth,
+          g = (0 > a || a > e) && a;if (d) {
+        if (0 > a || a > e) {
+          c.style.scrollBehavior = "smooth";var h = 0 > g ? e * f : 0;_Utils2.default.moveToScroll(h, c, !1), this.configSlide.position = 0 > g ? e : 0, this.configSlide.active = !0, c.removeAttribute("style");
         }
-    }, {
-        key: "callbacks",
-        value: function callbacks(isNext, position) {
-            var callbacks = this.configSlide.callbacks;
-
-            var INDEX = isNext ? position - 1 : position + 1;
-            var ACTION = callbacks["Slide" + INDEX] || null;
-            if (ACTION) {
-                var LAUNCH = ACTION.next === isNext || ACTION.previus && !isNext;
-                try {
-                    if (LAUNCH) ACTION.callback();
-                } catch (error) {
-                    console.groupCollapsed("%c 🚫 [OrcaSlide => Error]", "color:#FFF;");
-                    console.error(error);
-                    console.groupEnd("[OrcaSlide => Error]");
-                }
-            }
+      } else this.displayArrow(a);
+    } }, { key: "resizeSlide", get: function get() {
+      var a = this,
+          c = this.configSlide,
+          d = _Utils2.default.existFields(c, "item", null),
+          e = _Utils2.default.existFields(c, "content", null),
+          f = "desktop" === _Utils2.default.isMobile ? 128 : c.jump;return null !== d && null !== e && window.addEventListener("resize", function () {
+        a.configSlide.scrollWidth = e.scrollWidth, a.configSlide.moveTo = b(d.offsetWidth / f), a.configSlide.itemWidth = d.offsetWidth;var g = d.offsetWidth * a.configSlide.position;_Utils2.default.moveToScroll(g, c.contentItem, !1);
+      }), this;
+    } }, { key: "setActionButton", get: function get() {
+      var a = this;return ["arrowNext", "arrowPrevious", "ctrlStop", "ctrlPlay"].forEach(function (b) {
+        var c = a.configSlide[b],
+            d = function d() {};b.includes("ctrl") ? (d = function d() {
+          a.autoPlay("ctrlPlay" === b);
+        }, _Utils2.default.actionButton(c, d)) : (d = function d() {
+          a.animateSlide("arrowNext" === b), a.autoPlay(!1);
+        }, _Utils2.default.actionButton(c, d));
+      }), this;
+    } }, { key: "validateConfig", get: function get() {
+      var a = this,
+          c = this.configSlide,
+          d = c.callbacks,
+          e = c.jump,
+          f = window.devicePixelRatio;return ["arrowNext", "arrowPrevious", "contentItem"].forEach(function (c) {
+        var d = a.configSlide[c],
+            f = _Utils2.default.getElementDom(d),
+            g = "desktop" === _Utils2.default.isMobile ? 128 : e;if (f && (a.configSlide[c] = f, "contentItem" === c)) {
+          var h = f.children[0] || {},
+              i = h.offsetWidth || 0,
+              j = b(i / g),
+              k = { items: f.children.length - 1, itemWidth: i, moveTo: j, scrollWidth: f.scrollWidth || 0, time: 1e3 * a.configSlide.time / 512, item: h, content: f };a.configSlide.active = 0 < k.items && 0 < k.moveTo, Object.assign(a.configSlide, k), a.configSlide.isInfinite || _Utils2.default.displayToggle(a.configSlide.arrowPrevious, "none");
         }
-
-        /**
-         * Oculta las flechas.
-         *
-         * @param {number} element posicion del elemento.
-         *
-         * @return {void}
-         */
-
-    }, {
-        key: "displayArrow",
-        value: function displayArrow(index) {
-            var _configSlide3 = this.configSlide,
-                autoPlay = _configSlide3.autoPlay,
-                arrowNext = _configSlide3.arrowNext,
-                arrowPrevious = _configSlide3.arrowPrevious,
-                items = _configSlide3.items,
-                isInfinite = _configSlide3.isInfinite;
-
-            var DISPLAY_PREVIUS = index > 0 ? "" : "none";
-            var DISPLAY_NEXT = items === index ? "none" : "";
-            _Utils2.default.displayToggle(arrowNext, DISPLAY_NEXT);
-            _Utils2.default.displayToggle(arrowPrevious, DISPLAY_PREVIUS);
-            if (autoPlay && !isInfinite && DISPLAY_NEXT === "none") {
-                this.autoPlay(false);
-            }
-        }
-
-        /**
-         * Se encarga de lanzar los eventos que dan vida al slider..
-         *
-         * @return void.
-         */
-
-    }, {
-        key: "initSlider",
-        value: function initSlider() {
-            this.validateConfig.setActionButton.resizeSlide.startTouch();
-            if (this.configSlide.autoPlay) this.autoPlay();
-            return 0;
-        }
-
-        // ================================================================= //
-        //                         Setter and Getter                         //
-        // ================================================================= //
-
-        /**
-         * Se innicializa el evento touch.
-         *
-         * @return {void} [description]
-         */
-
-    }, {
-        key: "startTouch",
-        value: function startTouch() {
-            var _this3 = this;
-
-            var DEVICE = _Utils2.default.isMobile;
-            var _configSlide4 = this.configSlide,
-                contentItem = _configSlide4.contentItem,
-                swipeConfig = _configSlide4.swipeConfig;
-
-            if (DEVICE !== "desktop") {
-                var SWIPE = swipeConfig;
-                contentItem.addEventListener("touchstart", function (action) {
-                    var TOUCH = _Utils2.default.existFields(action, "touches.0", null);
-                    if (TOUCH) {
-                        SWIPE.startX = TOUCH.screenX;
-                        SWIPE.startY = TOUCH.screenY;
-                    }
-                }, false);
-
-                contentItem.addEventListener("touchmove", function (action) {
-                    var TOUCH = _Utils2.default.existFields(action, "touches.0", null);
-                    if (TOUCH) {
-                        SWIPE.endX = TOUCH.screenX;
-                        SWIPE.endY = TOUCH.screenY;
-                        SWIPE.direction = _Utils2.default.getDirecctionSlide(SWIPE);
-                    }
-                }, false);
-
-                contentItem.addEventListener("touchend", function () {
-                    var IS_LEFT = SWIPE.direction === "left";
-                    _this3.autoPlay(false);
-                    _this3.animateSlide(IS_LEFT);
-                }, false);
-            }
-        }
-
-        /**
-         * Permite manejar la logica de cuando el carousel es infinito.
-         *
-         * @param {number} index  Posicion actual del slider.
-         *
-         * @return {void}
-         */
-
-    }, {
-        key: "isInfinite",
-        set: function set(index) {
-            var _configSlide5 = this.configSlide,
-                contentItem = _configSlide5.contentItem,
-                isInfinite = _configSlide5.isInfinite,
-                items = _configSlide5.items,
-                itemWidth = _configSlide5.itemWidth;
-
-            var RELOAD = (index < 0 || index > items) && index;
-            if (isInfinite) {
-                var INFINITE = index < 0 || index > items;
-                if (INFINITE) {
-                    contentItem.style.scrollBehavior = "smooth";
-                    var SCROLL = RELOAD < 0 ? items * itemWidth : 0;
-                    _Utils2.default.moveToScroll(SCROLL, contentItem, false);
-                    this.configSlide.position = RELOAD < 0 ? items : 0;
-                    this.configSlide.active = true;
-                    contentItem.removeAttribute("style");
-                }
-            } else {
-                this.displayArrow(index);
-            }
-        }
-
-        /**
-         * Evita que al redimensionar el navegador se tengan problemas con los slides.
-         *
-         */
-
-    }, {
-        key: "resizeSlide",
-        get: function get() {
-            var _this4 = this;
-
-            var CONFIG = this.configSlide;
-            var ITEM = _Utils2.default.existFields(CONFIG, "item", null);
-            var ELEMENT = _Utils2.default.existFields(CONFIG, "content", null);
-            var JUMP = _Utils2.default.isMobile === "desktop" ? 128 : CONFIG.jump;
-            if (ITEM !== null && ELEMENT !== null) {
-                window.addEventListener("resize", function () {
-                    _this4.configSlide.scrollWidth = ELEMENT.scrollWidth;
-                    _this4.configSlide.moveTo = Math.ceil(ITEM.offsetWidth / JUMP);
-                    _this4.configSlide.itemWidth = ITEM.offsetWidth;
-                    var POST = ITEM.offsetWidth * _this4.configSlide.position;
-                    _Utils2.default.moveToScroll(POST, CONFIG.contentItem, false);
-                });
-            }
-            return this;
-        }
-
-        /**
-         * Asigna los eventos a las flechas.
-         *
-         * @return void.
-         */
-
-    }, {
-        key: "setActionButton",
-        get: function get() {
-            var _this5 = this;
-
-            var KEYS = ["arrowNext", "arrowPrevious", "ctrlStop", "ctrlPlay"];
-            KEYS.forEach(function (button) {
-                var BUTTON = _this5.configSlide[button];
-                var IS_PLAY = button === "ctrlPlay";
-                var IS_NEXT = button === "arrowNext";
-                var callbacks = function callbacks() {};
-
-                if (button.includes("ctrl")) {
-                    callbacks = function callbacks() {
-                        _this5.autoPlay(IS_PLAY);
-                    };
-                    _Utils2.default.actionButton(BUTTON, callbacks);
-                } else {
-                    callbacks = function callbacks() {
-                        _this5.animateSlide(IS_NEXT);
-                        _this5.autoPlay(false);
-                    };
-                    _Utils2.default.actionButton(BUTTON, callbacks);
-                }
-            });
-            return this;
-        }
-
-        /**
-         * Validacion de la configuracion base.
-         *
-         * @type {Object} Resive la configuracion base.
-         *
-         */
-
-    }, {
-        key: "validateConfig",
-        get: function get() {
-            var _this6 = this;
-
-            var KEYS = ["arrowNext", "arrowPrevious", "contentItem"];
-            var _configSlide6 = this.configSlide,
-                callbacks = _configSlide6.callbacks,
-                jump = _configSlide6.jump;
-
-            KEYS.forEach(function (item) {
-                var SELECTOR = _this6.configSlide[item];
-                var ELEMENT = _Utils2.default.getElementDom(SELECTOR);
-                var JUMP = _Utils2.default.isMobile === "desktop" ? 128 : jump;
-                if (ELEMENT) {
-                    _this6.configSlide[item] = ELEMENT;
-                    if (item === "contentItem") {
-                        var ITEM = ELEMENT.children[0] || {};
-                        var ITEM_WIDTH = ITEM.offsetWidth || 0;
-                        var NEW_CONFIG = {
-                            items: ELEMENT.children.length - 1,
-                            itemWidth: ITEM_WIDTH,
-                            moveTo: Math.ceil(ITEM_WIDTH / JUMP),
-                            scrollWidth: ELEMENT.scrollWidth || 0,
-                            time: _this6.configSlide.time * 1000 / 512,
-                            item: ITEM,
-                            content: ELEMENT
-                        };
-                        _this6.configSlide.active = NEW_CONFIG.items > 0 && NEW_CONFIG.moveTo > 0;
-                        Object.assign(_this6.configSlide, NEW_CONFIG);
-                        if (!_this6.configSlide.isInfinite) {
-                            _Utils2.default.displayToggle(_this6.configSlide.arrowPrevious, "none");
-                        }
-                    }
-                }
-            });
-            this.configSlide.callbacks = _Utils2.default.getCallbacksConfig(callbacks);
-            return this.validateConfigAutoPlay;
-        }
-
-        /**
-         * Permite validar la configuracion para el auto play.
-         *
-         * @return self Fluent interface.
-         */
-
-    }, {
-        key: "validateConfigAutoPlay",
-        get: function get() {
-            var _configSlide7 = this.configSlide,
-                active = _configSlide7.active,
-                ctrlPlay = _configSlide7.ctrlPlay,
-                ctrlStop = _configSlide7.ctrlStop,
-                timeAutoPlay = _configSlide7.timeAutoPlay;
-
-
-            if (active) {
-                var CONFIG = {
-                    timeAutoPlay: timeAutoPlay * 1000,
-                    ctrlPlay: _Utils2.default.getElementDom(ctrlPlay),
-                    ctrlStop: _Utils2.default.getElementDom(ctrlStop)
-                };
-                Object.assign(this.configSlide, CONFIG);
-            }
-            return this;
-        }
-    }]);
-
-    return OrcaSlide;
-}();
-
-exports.default = OrcaSlide;
+      }), this.configSlide.callbacks = _Utils2.default.getCallbacksConfig(d), this.validateConfigAutoPlay;
+    } }, { key: "validateConfigAutoPlay", get: function get() {
+      var a = this.configSlide,
+          b = a.active,
+          c = a.ctrlPlay,
+          d = a.ctrlStop,
+          e = a.timeAutoPlay;if (b) {
+        var f = { timeAutoPlay: 1e3 * e, ctrlPlay: _Utils2.default.getElementDom(c), ctrlStop: _Utils2.default.getElementDom(d) };Object.assign(this.configSlide, f);
+      }return this;
+    } }]), a;
+}();exports.default = OrcaSlide;
 
 /***/ }),
 /* 3 */
@@ -580,229 +287,67 @@ exports.default = OrcaSlide;
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Utils = function () {
-    function Utils() {
-        _classCallCheck(this, Utils);
+Object.defineProperty(exports, "__esModule", { value: !0 });var _createClass = function () {
+  function a(a, b) {
+    for (var c, d = 0; d < b.length; d++) {
+      c = b[d], c.enumerable = c.enumerable || !1, c.configurable = !0, "value" in c && (c.writable = !0), Object.defineProperty(a, c.key, c);
     }
-
-    _createClass(Utils, null, [{
-        key: "actionButton",
-
-        /**
-         * Permite agregar eventos a elementos de la interfaz.
-         *
-         * @param  {object} button Referencia a elemento del dom.
-         * @param  {function} callbacks Funciones a ejecutar.
-         * @param  {String} (Optional) Tipo de accion.
-         *
-         * @return {void}
-         */
-        value: function actionButton(button) {
-            var callbacks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-            var evento = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "click";
-
-            if (button) {
-                button.addEventListener(evento, function () {
-                    if (typeof callbacks === "function") {
-                        callbacks();
-                    }
-                });
-            }
-        }
-
-        /**
-         * Permite ocultar y mostar un elemento.
-         *
-         * @param  {Object} element Referencia a elemento del dom.
-         * @param  {string} display Permite setear la propiedad display.
-         *
-         * @return {void}
-         */
-
-    }, {
-        key: "displayToggle",
-        value: function displayToggle(element) {
-            var display = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-
-            var ELEMENT = element;
-            var auxDisplay = display;
-
-            if (display !== "") {
-                var DISPLAY = ELEMENT.style.display || "block";
-                auxDisplay = DISPLAY === "block" ? "none" : "";
-            }
-            ELEMENT.style.display = auxDisplay;
-        }
-
-        /**
-         * Valida si un key existe dentro de un object.
-         *
-         * @param  {object} data Objeto en el que se realizara el test.
-         * @param  {string} keys Llaves a buscar.
-         * @param {any} requestDefault respuesta por defecto.
-         *
-         * @return {any}.
-         */
-
-    }, {
-        key: "existFields",
-        value: function existFields(data, keys) {
-            var requestDefault = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
-
-            var KEYS = keys.split(".");
-            var objectTest = data;
-            // funcion especial
-            var VALIDATE = function VALIDATE() {
-                return KEYS.every(function (key) {
-                    var REQUEST = typeof objectTest[key] !== "undefined";
-                    objectTest = objectTest[key];
-                    return REQUEST;
-                });
-            };
-            return VALIDATE() ? objectTest : requestDefault;
-        }
-
-        /**
-         * Permite conseguir un elemento del dom identificando si esta vacio o existe.
-         * @param  {String} (Optional) Selector referente al elemento del dom.
-         *
-         * @return {object}.
-         */
-
-    }, {
-        key: "getElementDom",
-        value: function getElementDom() {
-            var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-
-            var domElement = null;
-            if (selector) {
-                domElement = document.querySelector(selector) || domElement;
-            }
-            return domElement;
-        }
-
-        /**
-         * Permite identificar el tipo de dispositivo.
-         *
-         * @type {string}
-         */
-
-    }, {
-        key: "moveToScroll",
-
-
-        /**
-         * Permite realizar el movimiento del scroll.
-         *
-         * @param  {number} pixels Numero de pixeles a desplazar.
-         * @param  {Boolean} isAdd (Optional) indica si los piexeles se agregan a la cuenta actual.
-         *
-         * @return void.
-         */
-        value: function moveToScroll(pixels, contentItem) {
-            var isAdd = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
-            var CONTENT = contentItem;
-            if (isAdd) {
-                CONTENT.scrollLeft += pixels;
-            } else {
-                CONTENT.scrollLeft = pixels;
-            }
-        }
-
-        /**
-         * Crea la configuracion base para el llamado de callbacks.
-         *
-         * @param  {array} config Listado de funciones.
-         *
-         * @return {object}
-         */
-
-    }, {
-        key: "getCallbacksConfig",
-        value: function getCallbacksConfig(config) {
-            var CONFIG = {
-                callback: function callback() {},
-                next: false,
-                previus: false
-            };
-
-            var CALLBACKS = config.reduce(function (action, item) {
-                var KEY = "Slide" + (item.slide - 1);
-                var DATA = {};
-                var DEFAULT = Object.assign({}, CONFIG);
-                Object.assign(DEFAULT, item);
-                DATA[KEY] = DEFAULT;
-                return Object.assign(action, DATA);
-            }, {});
-
-            return CALLBACKS;
-        }
-
-        /**
-         * Permite conseguir la direccion en la que se reliza el swipe.
-         *
-         * @param  {object} swipe configuracion base para el swipe.
-         * @return {string}
-         */
-
-    }, {
-        key: "getDirecctionSlide",
-        value: function getDirecctionSlide(swipe) {
-            var HZR_X1 = swipe.endX - swipe.min_x > swipe.startX;
-            var HZR_X2 = swipe.endX + swipe.min_x < swipe.startX;
-            var HZR_Y1 = swipe.endY < swipe.startY + swipe.max_y;
-            var HZR_Y2 = swipe.startY > swipe.endY - swipe.max_y;
-
-            var VERT_Y1 = swipe.endY - swipe.min_y > swipe.startY;
-            var VERT_Y2 = swipe.endY + swipe.min_y < swipe.startY;
-            var VERT_X1 = swipe.endX < swipe.startX + swipe.max_x;
-            var VERT_X2 = swipe.startX > swipe.endX - swipe.max_x;
-
-            var IS_HORIZONTAL = (HZR_X1 || HZR_X2) && HZR_Y1 && HZR_Y2;
-            var IS_VERTICAL = (VERT_Y1 || VERT_Y2) && VERT_X1 && VERT_X2;
-
-            var direction = "";
-
-            if (IS_HORIZONTAL) {
-                direction = swipe.endX > swipe.startX ? "right" : "left";
-            } else if (IS_VERTICAL) {
-                direction = swipe.endY > swipe.startY ? "bottom" : "top";
-            }
-
-            return direction;
-        }
-    }, {
-        key: "isMobile",
-        get: function get() {
-            var DEVICE = typeof navigator !== "undefined" ? navigator.userAgent.match(/iPhone|iPad|iPod|Android/i) : "desktop";
-            var WIDTH_SCREEN = typeof window !== "undefined" ? window.innerWidth : "1024";
-            var request = "desktop";
-
-            if (DEVICE != null) {
-                if (WIDTH_SCREEN <= 768) {
-                    request = "phone";
-                } else if (WIDTH_SCREEN > 768 && WIDTH_SCREEN <= 1024) {
-                    request = "tablet";
-                }
-            }
-            return request;
-        }
-    }]);
-
-    return Utils;
-}();
-
-exports.default = Utils;
+  }return function (b, c, d) {
+    return c && a(b.prototype, c), d && a(b, d), b;
+  };
+}();function _classCallCheck(a, b) {
+  if (!(a instanceof b)) throw new TypeError("Cannot call a class as a function");
+}var Utils = function () {
+  function a() {
+    _classCallCheck(this, a);
+  }return _createClass(a, null, [{ key: "actionButton", value: function value(a) {
+      var b = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : null,
+          c = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : "click";a && a.addEventListener(c, function () {
+        "function" == typeof b && b();
+      });
+    } }, { key: "displayToggle", value: function value(a) {
+      var b = 1 < arguments.length && void 0 !== arguments[1] ? arguments[1] : "",
+          c = a,
+          d = b;if ("" !== b) {
+        var e = c.style.display || "block";d = "block" === e ? "none" : "";
+      }c.style.display = d;
+    } }, { key: "existFields", value: function value(a, b) {
+      var c = 2 < arguments.length && void 0 !== arguments[2] ? arguments[2] : "",
+          d = b.split("."),
+          e = a;return function () {
+        return d.every(function (a) {
+          var b = "undefined" != typeof e[a];return e = e[a], b;
+        });
+      }() ? e : c;
+    } }, { key: "getElementDom", value: function value() {
+      var a = 0 < arguments.length && void 0 !== arguments[0] ? arguments[0] : "",
+          b = null;return a && (b = document.querySelector(a) || b), b;
+    } }, { key: "moveToScroll", value: function value(a, b) {
+      var c = !(2 < arguments.length && void 0 !== arguments[2]) || arguments[2],
+          d = b;c ? d.scrollLeft += a : d.scrollLeft = a;
+    } }, { key: "getCallbacksConfig", value: function value(a) {
+      var b = { callback: function callback() {}, next: !1, previus: !1 },
+          c = a.reduce(function (a, c) {
+        var d = "Slide" + (c.slide - 1),
+            e = {},
+            f = Object.assign({}, b);return Object.assign(f, c), e[d] = f, Object.assign(a, e);
+      }, {});return c;
+    } }, { key: "getDirecctionSlide", value: function value(a) {
+      var b = a.endX - a.min_x > a.startX,
+          c = a.endX + a.min_x < a.startX,
+          d = a.endY < a.startY + a.max_y,
+          e = a.startY > a.endY - a.max_y,
+          f = a.endY - a.min_y > a.startY,
+          g = a.endY + a.min_y < a.startY,
+          h = a.endX < a.startX + a.max_x,
+          i = a.startX > a.endX - a.max_x,
+          j = "";return (b || c) && d && e ? j = a.endX > a.startX ? "right" : "left" : (f || g) && h && i && (j = a.endY > a.startY ? "bottom" : "top"), j;
+    } }, { key: "isMobile", get: function get() {
+      var a = "undefined" == typeof navigator ? "desktop" : navigator.userAgent.match(/iPhone|iPad|iPod|Android/i),
+          b = "undefined" == typeof window ? "1024" : window.innerWidth,
+          c = "desktop";return null != a && (768 >= b ? c = "phone" : 768 < b && 1024 >= b && (c = "tablet")), c;
+    } }]), a;
+}();exports.default = Utils;
 
 /***/ }),
 /* 4 */
