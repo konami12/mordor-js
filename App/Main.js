@@ -1,5 +1,4 @@
-import OrcaSlide from "./core/orcaslide/source/";
-// import OrcaSlide from "./core/mordor";
+import OrcaSlide from "orcaslide";
 import "./styles/main.scss";
 
 document.onreadystatechange = () => {

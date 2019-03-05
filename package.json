@@ -14,7 +14,7 @@
         "carousel",
         "ecmaScript"
     ],
-    "author": "jorge mendez ortega",
+    "author": "Jorge Mendez Ortega",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/konami12/mordor-js/issues"
@@ -36,7 +36,8 @@
         "webpack": "3.10.0"
     },
     "dependencies": {
+        "babel-plugin-inline-json-import": "^0.2.1",
         "express": "^4.16.3",
-        "orcaslide": "^0.6.1"
+        "orcaslide": "1.0.1"
     }
 }
