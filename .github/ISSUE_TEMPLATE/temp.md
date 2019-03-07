@@ -2,7 +2,7 @@
 name: temp
 about: descripcion
 title: ''
-labels: sdfgh
+labels: demos, sdfgh
 assignees: konami12
 
 ---
