@@ -1,5 +1,5 @@
 ---
-name: temp
+name: genial
 about: descripcion
 title: Titulo
 labels: alan, demos, sdfgh
