@@ -1,8 +1,8 @@
 ---
 name: temp
 about: descripcion
-title: ''
-labels: demos, sdfgh, alan
+title: Titulo
+labels: alan, demos, sdfgh
 assignees: konami12
 
 ---
