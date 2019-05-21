@@ -4,6 +4,7 @@ about: Template para reportar un Bug(Error)
 title: ''
 labels: ''
 assignees: ''
+
 ---
 
 ## [🐞 ERROR]  nombre del error
@@ -36,4 +37,3 @@ URL BSP: URL del ContentType dentro del CMS
 - Incluir información del Browser (incluir versión) donde se reproduce el error
 - Incluir información del Dispositivo donde se reproduce el error
 - NO OLVIDES RELACIONAR EL ERROR A LA HISTORIA PADRE
- 
