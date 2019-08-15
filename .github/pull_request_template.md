@@ -1,4 +1,4 @@
-## 📋 Listado de (ticket/issues) relacionados
+## 📋 Listado de (ticket/issues) relacionadoss
 - [ ] **📌 [ID_Ticket: Name](https://televisatim.atlassian.net/browse/ID_Ticket)**
 - [ ] **📌 [ID_Issue: Name](ID_Issue)**
 ---
