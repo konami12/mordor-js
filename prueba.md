@@ -1,261 +1,170 @@
 
-# Expresiones Regulares
+# Que es GraphQL?
 
-Expresiones Regulares
+Que es GraphQL?
 
-Como desarrollador es muy común trabajar con cadenas de texto, lo cual inicialmente puede parecer algo muy sencillo, pero conforme las cadenas se vuelven más complejas es inevitable ignorar el uso de las «**evil regular expressions 😈**» (muahahaha). Esto ya no suena tan sencillo, ya que para este punto un problema se convierte en 2, además de resultar un poco frustrante.
+Es un query language, es decir, un lenguaje de consultas. Un lenguaje es un sistema compartido por dos partes que les permite comunicarse entre sí.
 
-Tranquilo, antes de iniciar, tírate al suelo y repite después de mi:
+Un lenguaje de consultas como GraphQL nos permite *hacer consultas y esperar una respuesta predecible*. Un ejemplo de una lenguaje de consultas es SQL, el cual se enfoca en las consultas a una base de datos.
 
-![Tutorial de como llorar (**Fig-01**)](https://cdn-images-1.medium.com/max/2000/1*iOnm7Yw1d6RXj4nKodLMYA.png)
-### 😿 Las expresiones regulares son buenas, no son el diablo…
-### 🙀 Las expresiones regulares son buenas,no son el diablo…
-### 😸 Las expresiones regulares son buenas, no son el diablo…
+Aunque suene un poco confuso, SQL no tiene nada que ver con GraphQL, ya que el primero está pensado para trabajar con bases de datos, y GraphQL es para comunicar clientes y servidores.
 
-Tranquilo, respira hondo y exhala… listo. El momento feo ya pasó, la pregunta que te puedes estar haciendo es:
- 
- ### ¿En verdad las «**evil regular expressions 😈**» son buenas?
+GraphQL es una herramienta que se presenta como una alternativa a REST. La principal mejora que propone es la optimización, además de trasladar la información del servidor al cliente.
 
-A lo que te podría contestar, claro que son muy buenas **😇** y poderosas, ya que con la combinación correcta de caracteres podemos realizar desde una búsqueda muy sencilla, hasta una muy compleja; en pocas palabras tenemos la **navaja suiza** para el manejo de cadenas.
+Una de las ventajas más importantes de GraphQL es que es agnóstico de plataforma, lo que quiere decir que se puede implementar en más de 20 lenguajes.
 
-## 📚 Un poco de historia
+El principal objetivo de GraphQL es evitar las múltiples consultas al servidor.
 
-![Expresión regular en el antiguo Egipto (**Fig-02**)](https://cdn-images-1.medium.com/max/2000/1*1hGSGEsR4NmyCa2H5TMYIA.jpeg)
+## Diferencias entre ApiRest y GraphQL
 
-Antes de entrar en materia es bueno conocer un poco de historia sobre la primer aparición de **expresiones regulares** en el campo de la computación las cuales surgen nada más y nada menos que dentro de un editor de líneas llamado [Ed](https://es.wikipedia.org/wiki/Ed_(Unix))*, creado por el ingeniero* [Ken Thompson](https://es.wikipedia.org/wiki/Ken_Thompson)*, quién entonces se encontraba trabajando en los laboratorios de [Bell Labs](https://es.wikipedia.org/wiki/Bell_Labs)* allá por 1969.
+### ApiRest
 
-Aquel editor de líneas apareció por primera vez como una utilidad para el sistema operativo de **[UNIX](https://es.wikipedia.org/wiki/Unix)** y era el encargado de suplir las labores para editar archivos. Similar a como se hace en la actualidad, la instrucción que había que escribir para que [Ed](https://es.wikipedia.org/wiki/Ed_(Unix))realizará una búsqueda de texto era algo parecido a.
+* **Es solo una convención**: Es una manera de comunicarse entre el servidor y cliente, cada uno tiene sus reglas.
 
-![Comando para Ed (**Fig-03**)](https://cdn-images-1.medium.com/max/2000/1*l2Vat6WBzDoYL0_o1M2JXw.png)
+* **El servidor expone recurso**s: Los clientes se tienen que adecuarse a como están expuestos.
 
-En el comando utilizado por [Ed](https://es.wikipedia.org/wiki/Ed_(Unix)) se colocaba al inicio **g(global)** y **p(print)** al final, ambas letras son conocidas como modificadores y lo que queda en la parte central es la combinación de caracteres que conforman las expresión regular.
+* **Hace overfetching**: Envía más información de la que se necesita.
 
-En este punto surge algo muy interesante ya que la instrucción anterior da como resultado la frase **“Global Regular Expression Print”** *cuya abreviatura conforma la palabra* **grep**, a partir de esta característica de [Ed](https://es.wikipedia.org/wiki/Ed_(Unix)) nace el comando [grep](https://es.wikipedia.org/wiki/Grep)(comando presente en todos los S.O basados en [UNIX](https://es.wikipedia.org/wiki/Unix)) el cual nos permite realizar búsquedas a nivel del sistema de archivos.
+* **Múltiples request por vista**: Muy costoso en performance, básicamente es una aplicación en blanco que aún no ha cargado datos o tiene custom endpoints.
 
-![Ejemplo de uso de grep (**Fig-04**)](https://cdn-images-1.medium.com/max/2000/1*pQjVdfJlPy53Osix-8NQqw.png)
+* **Documentación ajena al desarrollo**: No hay un estándar por lo que depende mucho del desarrollador para mantenerla.
 
-*Actualmente muchos lenguajes de programación modernos cuentan con el soporte necesario para el uso de expresiones regulares aunque la sintaxis puede cambiar para cada lenguaje,* en esencia podremos hacer soluciones similares para cada uno, con todo lo anterior iniciaremos con lo divertido todos los ejemplos mostrados serán escritos en *JS.*
+### GraphQL
 
-## 🛠️ Estructura
+* **Lenguaje tipado y validable**: Le damos una forma de lo que recibe y lo que devolvemos, Además de agregarle seguridad.
 
-Antes de iniciar a jugar con las **«*evil regular expressions *😈» **y descubrir que solo son incomprendidas iniciaremos conociendo la estructura básica.
+* **El Cliente define que recibe**: Haciendo una consulta, de la estructura que se define como respuesta.
 
-![Estructura base (**Fig-05**)](https://cdn-images-1.medium.com/max/2000/1*pKZNFYlfZblyWzqfhxQO5A.png)
+* **Envía lo necesario**: Se tiene control total de las respuestas que se esperan del servidor.
 
-Como podemos ver las estructura es muy sencilla solo solicita 2 parámetros de momento no tomaremos en cuenta el parámetro de los modificadores ya que iniciaremos con ejemplos básicos y conforme avancemos subiremos el nivel de complejidad, como primer ejemplo realizaremos la búsqueda de caracteres.
+* **Hace un solo request por vista**: Se maneja un solo row, prácticamente en solo request puedes mandar todo lo que necesitas.
 
-![Ejemplo búsqueda de caracteres (**Fig-06**)](https://cdn-images-1.medium.com/max/2000/1*Ql7RfyXPm1AexYlFYvWFBQ.png)
+## Schemas(GQL)
 
-Hasta este punto el primer ejemplo no es nada sorprendente ya que esto lo puede realizar cualquier buscador, si lo vemos un poco más a fondo podemos ver que la búsqueda está recibiendo un patrón el cual se traduce a una *expresión regular *en su expresión básica.
+El manejo de esquemas dentro de ***GQL*(***GraphQL***)** facilita la forma en la que se deciden las entidades, cómo se relacionan entre ellas, cuáles son las entidades que están disponibles para cada cliente, en pocas palabras, es todo lo que el cliente puede pedir a través de ***GQL*,** Un punto importante a tomar en cuenta es que los ***Schemas*** están compuestos de ***types*** los cuales se conocen como scalars.
 
-## 📗 Metacaracteres
+## Scalars
 
-Los «**metacaracteres**» o también conocidos como *clases* son una alternativa para poder representar grupos enteros de caracteres que se encuentren relacionados entre sí de manera semántica, para poder utilizarlos es necesario el uso de *backslash* seguido del nombre de la clase en minúsculas.
+Permiten definir la mayoría de las propiedades de las **entidades** que utilizaremos, los tipos que nos permite manejar son
 
-![Sintaxis para el uso de metacaracteres (**Fig-07**)](https://cdn-images-1.medium.com/max/2000/1*t_JyknU5WmVwl0dkGG3vBA.png)
-> **📓 Nota:** Cuando el nombre del metacaracter se escribe en mayúsculas se considera como una negación por lo que su comportamiento será diferente a lo habitual.
+* **Int**: Números enteros.
 
-Tomando en cuenta la sintaxis y la nota anterior podríamos iniciar con la evangelización de **«*evil regular expressions *😈» **para lo que iniciaremos utilizando las reglas siguientes.
-> 💡**Recordatorio**: Todos los ejemplos utilizan el modificador **“g”** el cual permite buscar de manera global coincidencias dentro de una cadena, está opción se utiliza con fines demostrativos ya que cada metacaracter solo tomara un solo carácter.
+* **Float**: Números con decimales.
 
-### 🔖 metacaracter \w
+* **String**: Cadenas de texto.
 
-Realiza una búsqueda de **caracteres alfanuméricos** es importante mencionar que también toma el **underscore**.
+* **Boolean**: maneja los valores **True** o **False**.
 
-![Ejemplo del uso del metacaracter** \w** (**Fig-08**)](https://cdn-images-1.medium.com/max/2000/1*ME2ltRve03PIEAtwIFI15Q.png)
+* **ID**: Identificador único(***GQL*** se encargará de esto) este puede ser de tipo **Int** o **String**
 
-La clase **«\w»** cuenta con su equivalente ya consigue el mismo resultado.
+## Objects
 
-![Expresión equivalente al metacaracter **\w** (**Fig-09**)](https://cdn-images-1.medium.com/max/2000/1*GMebN3nkpAIsPVtEJOL5Gw.png)
+Permite definir las entidades que conforman nuestro esquema por ejemplo.
 
-El metacaracter **«\w»** cuenta con su variante de negación que es **«\W»** la cual permite buscar todo aquello que sea diferente a *caracteres alfanuméricos* y al **underscore**.
+<iframe src="https://medium.com/media/037f74963b02215e224bb58126922464" frameborder=0></iframe>
 
-![Ejemplo de negación de usando el metacaracter **\W **(**Fig-10**)](https://cdn-images-1.medium.com/max/2000/1*y2H6SQBOLDpdd66a-CEIGg.png)
+En el ejemplo anterior podemos ver que para definir el tipo de dato para las propiedades de la entidad definida se utilizan los valores de los **scalars** además de que el objeto **Curso** tiene un referencia al ***Objeto*** **Profesor.**
 
-### 🔖 metacaracter \d
+## Enum
 
-Permite realizar la búsqueda exclusiva de caracteres numéricos.
+También es conocido como **enumeradores,** los cuales permiten listar entre una o varias opciones posibles, ejemplo.
 
-![Ejemplo del uso del metacaracter** \d** (**Fig-11**)](https://cdn-images-1.medium.com/max/2000/1*9hxpxL2GYOGCBg65gpCLuw.png)
+<iframe src="https://medium.com/media/b9ce21d31e9025d1699747ce8037fdc5" frameborder=0></iframe>
 
-El metacaracter **«\d»** también cuenta con su equivalente ya que consigue el mismo resultado.
+## Interface
 
-![Expresión regular equivalente al metacaracter **\d **(**Fig-12**)](https://cdn-images-1.medium.com/max/2000/1*Ab4_MJquSyShVVg3BU9BHA.png)
+Proporciona la capacidad de describir campos que se comparten en diferentes tipos, es la definición de campos requeridos que sabemos que todas las implementaciones se van a cumplir, si en un futuro necesitáramos que todas las implementaciones de perfil tuvieran un nuevo campo, solamente debemos agregarlo a la **Interface**.
 
-El metacaracter **«\d»** también cuenta con su variante de negación que es **«\D»** la cual permite buscar todo aquello que sea diferente a caracteres* numéricos.*
+<iframe src="https://medium.com/media/de37b0756522d9f0e783e771a38a1880" frameborder=0></iframe>
 
-![Ejemplo de negación usando el metacaracter **\D **(**Fig-13**)](https://cdn-images-1.medium.com/max/2000/1*lnE33j7I-zjfcWW6H8gUcA.png)
+Es importante mencionar que el concepto de extender la lógica no existe en ***GQL*** es una manera de asegurarse que las implementaciones están al día, de una manera más sencilla podríamos mencionar que el uso de interface funciona con una validación previa al ejecutar un ***query***.
 
-### 🔖 metacaracter \s
+## Unión
 
-Permite realizar la búsqueda de los **espacios en blanco** que existen dentro de una cadena.
+Permite agrupar diferentes tipos en los cuales se puede realizar una búsqueda siempre dentro de los tipos agrupados, ejemplo.
 
-![Ejemplo del uso del metacaracter** \s** (**Fig-14**)](https://cdn-images-1.medium.com/max/2000/1*1qBo2mJAaK9xGAVqFywQ-g.png)
+<iframe src="https://medium.com/media/087c9a949816514a7371bdaf4bc78b6d" frameborder=0></iframe>
 
-El metacaracter **«\s»** también cuenta con su variante de negación que es **«\S»** la cual permite buscar todo aquello que sea diferente a espacios en blanco
+Como se muestra en el ejemplo puede verse que estamos utilizando la opción **union** para realizar la búsqueda dentro de los **Objects** ***Profesor y Curso ***además se utiliza un tercero el cual tendrá el resultado de la búsqueda.
 
-![Ejemplo de negación usando el metacaracter **\S **(**Fig-15**)](https://cdn-images-1.medium.com/max/2000/1*WGgJCfytG4Hm9h9Sat7hvQ.png)
+## Modificadores de tipo
 
-### 🔖 metacaracter .
+Dentro de ***GQL*** existen dos tipos de modificadores los cuales son.
+> **! **: El signo de exclamación permite indicar que un valor es requerido, de una manera más sencilla el campo que se requiera no puede ser **null** ya que si lo fuera ***GQL*** mostraría un error, en caso de que el campo no cuente con un el signo de exclamación esto nos indica que el campo es opcional.
 
-Este es uno de los más especiales ya que podemos hacerlo coincidir con cualquier carácter que se nos ocurra, con excepción de un salto de línea.
+<iframe src="https://medium.com/media/18ab6c91447e7f97009d91191088ec57" frameborder=0></iframe>
+> **［］** : el uso de corchetes permite indicar que se espera mas de una valor, se podría decir que similar a los famosos arreglos que utilizamos en cualquier lenguaje de programación.
 
-![Ejemplo del uso del metacaracter** . **(**Fig-16**)](https://cdn-images-1.medium.com/max/2000/1*ajuPFnnZDgro1l17Xc6FHw.png)
+<iframe src="https://medium.com/media/061cec190ecde059ef8c068885dcf477" frameborder=0></iframe>
 
-Muy interesante las **«_evil regular expressions 😈»**ya no parecen tan maléficas (mmm muy interesante creo que me estoy enamorando 😍). Hasta este punto podemos decir que estamos en el camino del **«Dios Digital»**por lo que procederemos a realizar nuestra primera plegaria(ejemplo).
+Algo interesante de los 2 modificadores de tipo pueden utilizarse juntos por ejemplo.
+> **[]!** : El usos de los corchetes con el signo de exclamación permite indicar que nuestra lista no puede ser **null** pero alguno de los valores contenido si pueden serlo por lo que esto no generaría un error.
 
-### 🤩 Extra
+<iframe src="https://medium.com/media/d801bf5ee27f4d42b21f45d14c82a479" frameborder=0></iframe>
 
-para el caso de **«\d y \w»** cuentan con patrones equivalentes estos patrones cuentan con una similitud muy curiosa la cual es el uso de **«[]»(mmm muy interesante)** los cuales facilitan una gama de posibilidades.
+En el ejemplo anterior se indica que la lista no puede ser **null** ya que es requerida pero dentro de la lista si pueden existir valores **null** por lo que seria valido y no se mostraría un **Error.**
+> **[!]!** : el uso de corchetes con el signo de exclamación dentro y fuera permite indicar que tanto la lista como el contenido no pueden ser null.
 
-1. ***Rango de dígitos [0–9]***
+<iframe src="https://medium.com/media/68e1fd287e07ae63e33359c41088b708" frameborder=0></iframe>
 
-1. ***Rango de letras [a-zA-Z]***
+Como se muestra en el ejemplo anterior se puede ver que tanto los valores que reciba la lista como la lista no pueden ser **null**.
 
-1. ***Listado de caracteres [\*\-]***
+## Root Type: Query
 
-![Ejemplo usando **[] **(**Fig-18**)](https://cdn-images-1.medium.com/max/2000/1*y5NeoVrXlhwhMCwrxlrDIQ.png)
+Es el punto de entrada para realizar las consultas, se puede ver como una analogía a los endpoints que encontramos dentro de una arquitectura **REST,** un punto importante dentro de ***GQL*** es que solo existe un solo punto de entrada.
 
-Como podemos ver en el ejemplo se utilizan caracteres especiales los cuales se escapan utilizando el siempre confiable **backslash**.
+<iframe src="https://medium.com/media/9f4eb4e22e28a09a3b7bbd23dea87bf6" frameborder=0></iframe>
 
-### 📕 Ejemplo
+En el ejemplo anterior podemos ver lo que es la declaración de nuestros puntos de entrada, unos de los casos a destacar es que se pueden manejar paramentos, con los cuales se pueden mandar ciertos valores que necesitemos dentro de nuestra consulta.
 
-Para este ejemplo realizaremos una combinación de los metacaracteres que ya explicamos con anterioridad, el reto es realizar una búsqueda de un número telefónico dentro de un párrafo, el numero a buscar es ***«(55–30–80 77–82)»*** _seria muy interesante que intentaras dar tu propia solución_ para lo cual te recomiendo el sitio siguiente [RegEx](https://regexr.com/)[.](https://regexr.com)
+## Root Type: Mutation
 
-![[Ejemplo usando metacaracteres combinados para buscar el teléfono (55–30–80 77–82) (**Fig-17**)](https://regexr.com/40tps)](https://cdn-images-1.medium.com/max/2000/1*uZncW0LZ75D3qpNcQk9JUw.png)*\]*
-> 📓**Nota** : Si quieres realizar cambios sobre la solución propuesta puedes hacerlo en el siguiente link [plegaria](https://regexr.com/40tps).
+***GQL*** no solo permite realizar consultas sino que también tiene la capacidad de *insertar, Borrar y editar elementos,** GQL*** nos facilita un tipo especial de **endPoint** el cual nos permite realizar las acciones ya mencionadas.
 
-Como se muestra en el ejemplo anterior se utiliza el uso combinado de metacaracteres para dar forma a la primera plegaria realizada hacia el **«Dios Digital»**🙌 (la solución puede variar dependiendo de la locura del lector).
+<iframe src="https://medium.com/media/ff1ba94fb87ce4a25fda8d6175694898" frameborder=0></iframe>
 
-## 📗 Contadores
+Como podemos ver en el ejemplo anterior se utiliza mutation para agregar nuevos valores a la entidad curso, es importante mencionar que como estamos afectando a curso en futuras consultas podríamos conseguir los campos agregados.
 
-Los ***«contadores»*** o también conocidos como *cuantificadores *permiten especificar el número de apariciones que puede tener un carácter o patrón dentro de una expresión regular, la sintaxis a utilizar es.
+## Declaración de variables
 
-![Sintaxis para el uso de metacaracteres y cuantificadores(**Fig-19**)](https://cdn-images-1.medium.com/max/2000/1*oXndO_VdXvWKsBrbuOfhhw.png)
+Antes de entender cómo se manejan la variables es importante decir y saber que en **GQL** no puedes tener nada sin saber de qué tipo es por lo cual es importante tomar en cuenta los ***saclars*,** en el siguiente ejemplo se muestra el uso de variables.
 
-Tomando en cuenta la sintaxis mostrada podemos ver de primera vista que se utiliza una combinación entre ***metacaracteres*** y ***un contador***, hasta este punto solo nos importa lo que está entre “**{}**“.
-> ## **Cota Inferior**: Permite indicar el número mínimo de apariciones de un carácter o patrón.
-> ## **Cota Superior**: Permite indicar el número máximo de apariciones de un carácter o patrón, esta cota trabaja en conjunto con la cota superior lo cual se convierte en un rango de posibles apariciones.
+![**Fig 11: Declaración de variables usando GraphiQL**](https://cdn-images-1.medium.com/max/2000/1*SyKOkXYceIZj5LOlzdOfDA.png)***Fig 11: Declaración de variables usando GraphiQL***
 
-Con lo anterior establecido podemos seguir por el camino de la salvación y seguir en con la evangelización de **«evil regular expressions 😈»**, _para entender el uso de contadores es necesario comprender las siguientes reglas_.
+En la imagen anterior podemos ver que se declara la variable ***id*** la cual se pasa de manera directa al query como se muestra en la **Línea 1, *GQL*** permite el manejo de queries ya que cuenta con una sintaxis propia la cual se muestra en el siguiente ejemplo.
 
-### 🔖 Contador {x}
+<iframe src="https://medium.com/media/d68b19fb572a6fa27458abc5ea4ab56e" frameborder=0></iframe>
 
-Este opción es la forma más básica ya que solo se utiliza la *cota inferior *esta variante es muy válida en algunos lenguajes de programación y en otros casos no ya que es obligatorio colocar las dos cotas.
+el ejemplo anterior es un query básico ya que ***GQL*** nos permite realizar búsquedas un poco más complejas y extensas por ejemplo supongamos el siguiente caso.
 
-![Ejemplo usando la cota inferior(**{x}**) para indicar que busque dos dígitos(**Fig-20**)](https://cdn-images-1.medium.com/max/2000/1*ixv9LJlqIaXc9-7ZiN5-Vw.png)
-> **📓 Nota:** Las dos opciones son válidas pero como somos muy buenos programadores siempre utilizaremos la opción de la derecha 😇 y esto es por que por buenas prácticas siempre es necesario declarar la **«**cota superior**»**.
+![**Fig 13: Diagrama de un query**](https://cdn-images-1.medium.com/max/2000/1*hRZe5LXezk0i-NCySmVM7g.png)***Fig 13: Diagrama de un query***
 
-### 🔖 Contador {x,}
+Como podemos ver en la imagen se muestra una relación de la tabla cursos con la tabla comentarios al iniciar el uso de ***GQL*** podemos resolver la consulta de una manera muy sencilla.
 
-Esta opción permite indicar un rango infinito de incidencias las cuales iniciarán desde el número que se indique en la *cota inferior.*
+<iframe src="https://medium.com/media/1d7c1ba36803b70a2b2c9e9c0c68d9e0" frameborder=0></iframe>
 
-![Ejemplo usando la cota superior con , (**Fig-21**)](https://cdn-images-1.medium.com/max/2000/1*6BH2Uf8uzqAt-qzGSLSUDg.png)
+como se muestra en el ejemplo anterior podemos ver que resolver la consulta es muy sencillo.
 
-Como se muestra en el ejemplo anterior al utilizar la sintaxis **«{x,}»** no le importa las incidencias que aparezcan después de cumplir la condición de la *cota inferior*.
+## Conclusión
 
-### 🔖 Contador {x ,y}
+Como hemos podido ver, ***GQL*** nos da herramientas para desarrollar un ***API*** de forma rápida, natural e independiente del acceso a base de datos o en algunos casos conectarnos a un ***CMS***. Además soporta una gran cantidad de lenguajes y clientes.
 
-Esta opción utiliza la *cota inferior(x)* como la *cota superior(y)* esto permite indicar un rango de apariciones de un carácter o patrón cual se puede traducir como ***«entre “x” y “y” veces»*** esta notación es la más común que se maneja la comunidad.
+## Extras
 
-![Ejemplo Usando las dos cotas (**Fig-22**)](https://cdn-images-1.medium.com/max/2000/1*LOLQAz3qaCbGeAFRm6e0YQ.png)
+como material extra dejo el repositorio que arme al llevar un pequeño curso de ***GQL ***en este repositorio encontraremos paso a paso cómo se configura un servidor y el uso de*** GQL ***además de que ya cuenta con una la integración de ***Apollo, ***es importante mencionar que por cada acción que se realiza en el proyecto se cuenta con TAG el cual corresponde a cada paso realizado.
+[**OrcaPracticas/GQL**
+*Practicas realizadas utilizando graphql. Contribute to OrcaPracticas/GQL development by creating an account on GitHub.*github.com](https://github.com/OrcaPracticas/GQL)
 
-como se muestra en el ejemplo anterior podemos se utilizan las 2 cotas las cuales permiten establecer el rango de posibles apariciones de un carácter o patrón, si esto lo comparamos con la variante anterior se puede ver que en este caso si se cuenta con una limitante.
+![**Fig 14: Cheat Sheet**](https://cdn-images-1.medium.com/max/5052/1*VN4R0doiFW90i4m9iKuEpw.png)***Fig 14: Cheat Sheet***
 
-### 🤩 Extra
-
-Dentro de los contadores también existen caracteres que facilitan el conteo de las incidencias estos también se conocen como ***delimitadores***.
-> ## Delimitador: secuencia de uno o más caracteres utilizados para especificar el límite entre regiones independientes e independientes en texto sin formato u otras secuencias de datos.
-
-***? : Puede estar o no estar***
-
-![Ejemplo utilizando **?, **como se puede ver se cumplen la regla propuesta** **(**Fig-23**)](https://cdn-images-1.medium.com/max/2000/1*kds_uNGg7b-ZYYeTU-EyPQ.png)
-
-***+ : Puede estar una vez o muchas veces***
-
-![Ejemplo utilizando **+, **como se puede ver se cumplen la regla propuesta** **(**Fig-24**)](https://cdn-images-1.medium.com/max/2000/1*Un04r6nHu4feDdl4otuBHA.png)
-
-**** : Puede no estar o estar muchas veces***
-
-![Ejemplo utilizando ***, **como se puede ver se cumplen la regla propuesta** **(**Fig-25**)](https://cdn-images-1.medium.com/max/2000/1*ZtZE0XTL3tPrRHDnHmir2Q.png)
-
-***(): Conocido como paréntesis de captura, permite recordar una expresión regular, la funcionalidad es muy parecida a los [] solo que en este caso el rango se sustituye por una expresión regular.***
-
-![Ejemplo utilizando **(), **como se puede ver se cumplen la regla propuesta** **(**Fig-25**)](https://cdn-images-1.medium.com/max/2000/1*kWO9NUeVgXo6gxQuU6OwGg.png)
-
-### 📕 Ejemplo
-
-Para este ejemplo realizaremos la misma práctica que se realizó en el apartado de ***«metacaracteres»*** pero en este caso utilizaremos ***«contadores»***,
-como recordamos el ejemplo anterior consiste en la búsqueda de un número telefónico«**(55–30–80 77–82)**», ***seria muy interesante*** ***que intentaras dar tu propia solución para lo cual te recomiendo el sitio siguiente [RegEx](https://regexr.com/)[.](https://regexr.com)
-
-![E[jemplo usando metacaracteres y contadores combinados para buscar el teléfono (55–30–80 77–82) (**Fig-26**)](https://regexr.com/419am)](https://cdn-images-1.medium.com/max/2360/1*FegXBdCu7MIw7Hn6A95Lww.png)
-> 📓**Nota** : Si quieres realizar cambios sobre la solución propuesta puedes hacerlo en el siguiente link [plegaria](https://regexr.com/419am).
-
-Como se muestra en el ejemplo anterior ya estamos aplicando los evangelios aprendidos, lo cual nos permitirá crear una plegaria mas potente la cual satisfacerá al **«Dios Digital»**🙌 (la solución puede variar dependiendo de la locura del lector).
-
-## 📗 Modificadores
-
-Con anterioridad los mencionamos y utilizamos en algunos de los ejemplos mostrados, los modificadores nos permiten redefinir los términos de búsqueda de una expresión ya que en ocasiones las búsquedas son sensibles a mayúsculas, terminan al encontrar la primera coincidencia etc, por lo que para poder modificar este comportamiento podemos utilizar la sintaxis.
-
-![Estructura base (**Fig-27**)](https://cdn-images-1.medium.com/max/2000/1*pKZNFYlfZblyWzqfhxQO5A.png)
-
-Lo se es la misma imagen del inicio pero hasta este punto hace sentido ya que estamos respetando la sintaxis que se necesita para utilizar los modificadores junto con nuestra expresión regular.
-> 📓 **Nota** : Los modificadores son opcionales, ademas de que son acomulables esto quiere decir que podemos utilizar más de uno al mismo tiempo.
-
-### 🔖 Modificador i
-
-Este modificador se conoce como ***«Búsqueda insensible a mayúsculas»,*** este realiza una búsqueda sin importar el uso de mayúsculas.
-
-![Ejemplo utilizando el modificador **i **(**Fig-28**)](https://cdn-images-1.medium.com/max/2000/1*5_CQZzNR5Wshh6r4Jvyuxw.png)
-
-Como se muestra en ejemplo cuando se utiliza el *modificador i* la selección inicia tomando la letra mayúsculas, en caso contrario iniciará la búsqueda desde las letras minúsculas.
-
-### 🔖 Modificador g
-
-Es modificador se conoce como **«Búsqueda global»** (utilizado en los ejemplos), este realiza una búsqueda el mayor número de coincidencias no se detiene en el primer resultado que encuentra.
-
-![Ejemplo utilizando el modificador **g** (**Fig-29**)](https://cdn-images-1.medium.com/max/2232/1*-scstAWr8oC_3v_ORE--5A.png)
-
-Como se muestra en el ejemplo al utilizar el **modificador g** la búsqueda se realiza en todo el texto del párrafo en el caso de no colocar el modificador la búsqueda se queda en la primera incidencia que encuentra.
-
-### 🔖 Modificador m
-
-Es modificador se conoce como ***«Búsqueda multilínea»,*** este realiza una búsqueda de manera individual en cada renglón de un texto, este modificador trabaja en conjunto con los metacaracteres
-> ## **^**: Se utiliza para indicar el inicio de una línea.
-> ## **$**: Se utiliza para indicar el final de una línea
-
-Dichos caracteres permiten indicar la posición de la línea donde debe hacerse la búsqueda otra de las ventajas es que permite realizar el match de líneas completas.
-
-![Ejemplo utilizando el modificador **m **(**Fig-30**)](https://cdn-images-1.medium.com/max/2000/1*J44f7wHVADL4rF4k6HDkGg.png)
-
-Como se muestra en el ejemplo al utilizar el* modificador m *la búsqueda se realiza línea por línea por lo que solo tomo como resultado la incidencia que cumple con la petición a buscar.
-
-### 🤩 Extra
-
-En el caso de modificador multilínea se utilizaron los *metacaracteres ^,$* de los cuales el carácter ^ cuenta con una variante la cual sirve para realizar una negación la sintaxis es la siguiente.
-
-![Sintaxis de negación usando **^ **(**Fig-31**)](https://cdn-images-1.medium.com/max/2000/1*OyIWqBMAdyoTlymeMUJhug.png)
-
-Como se muestra en el ejemplo para poder utilizar la negación es necesario utilizar **«[]»** en los cuales se indica los caracteres a negar.
-
-![Ejemplo de negación utilizando **^ **(**Fig-33**)](https://cdn-images-1.medium.com/max/2000/1*_IIa2Ya7_y0sbeZHipzI2w.png)
-
-Como se muestra en el ejemplo anterior al momento de que su utiliza ^ dentro de los corchetes automáticamente ignora las letras y toma los valores restantes.
-
-### 📕 Ejemplo
-
-Para este ejemplo realizaremos la misma práctica que se realizó en el apartado de ***«contadores»*** pero en este caso utilizaremos ***«modificadores»***,
-como recordamos el ejemplo anterior consiste en la búsqueda de un número telefónico«(***55–30–80 77–82***)», seria muy interesante que intentaras dar tu propia solución para lo cual te recomiendo el sitio siguiente [RegEx](https://regexr.com/)[.](https://regexr.com)
-
-![[Ejemplo usando la combinación de lo aprendido para buscar el teléfono (55–30–80 77–82) (**Fig-34**)](https://regexr.com/41l1g)](https://cdn-images-1.medium.com/max/2000/1*jYx8KJqLuzn2gb-FyxbBpQ.png)
-
-> 📓**Nota** : Si quieres realizar cambios sobre la solución propuesta puedes hacerlo en el siguiente link [plegaria.](https://regexr.com/41l1g)
-
-### 😼 Conclusión
-
-Como se muestra en los ejemplos mostrados durante toda la entrada podemos decir que ya estamos evangelizados por lo que toda cadena que necesitemos utilizar las «***evil regular expressions *😈» **podremos aplicarles un exorcismo gracias al **«Dios Digital»** 🙌 ya que contamos con el conocimiento para crear las plegarias, es importante ver que desde este momento cuando utilicemos las *expresiones regulares* ya no tendremos 2 problemas lo que tendremos desde este momento es un solución robusta y duradera.
-> ## 👍 Las expresiones regulares si son mis amigas.
-> ## 🙌 Las expresiones regulares si son mis amigas.
-> ## 🤟 Las expresiones regulares si son mis amigas.
-
-**Gracias por darte una vuelta por esta entrada**. Todo comentario es bien recibido en [@Konami12Jorge](https://twitter.com/Konami12Jorge), no olvides ayudar con 👏 y compartir este material si consideras que alguien más necesita ser evangelizado.
+## Entradas anteriores
+[**Expresiones Regulares**
+*Como desarrollador es muy común trabajar con cadenas de texto, lo cual inicialmente puede parecer algo muy sencillo…*medium.com](https://medium.com/@jmz12/expresiones-regulares-215af64acab1)
+[**🤔 Entendiendo los ciclos de vida en React**
+*En React los componentes que extienden de Component o PureComponent cuentan con el manejo de ciclos de vida, es…*medium.com](https://medium.com/@jmz12/entendiendo-los-ciclos-de-vida-8a70abb3b51a)
+[**Usando Clases en JavaScript**
+*Actualmente con las nuevas especificaciones EcmaScript 6 se introduce el manejo de clases(class), estas brindan una…*medium.com](https://medium.com/@jmz12/usando-clases-en-javascript-e07f0e25c67d)
+[**Callbacks, Promesas y Async/Await, ¡Que alguien me explique!**
+*En el desarrollo de sitios o aplicativos web es muy común realizar consultas a Application Programming Interface(API)…*medium.com](https://medium.com/@jmz12/callbacks-promesas-y-async-await-que-alguien-me-explique-514137cb57e2)
+[**Patrones de Diseño en JS**
+*En este post, se mostraran algunas de las implementaciones de JavaScript mostrando algunos de sus patrones de diseño.*medium.com](https://medium.com/@jmz12/patrones-de-dise%C3%B1o-en-js-43beab8f5756)
