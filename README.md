@@ -15,3 +15,5 @@ Al realizar la instalacion ejecutar el comando
 y consultar la url 
 
 `http://localhost:3000/`
+
+Desde un submodulo
