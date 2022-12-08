@@ -37,7 +37,7 @@
     },
     "dependencies": {
         "babel-plugin-inline-json-import": "^0.2.1",
-        "express": "^4.16.3",
+        "express": "^4.17.3",
         "orcaslide": "1.0.1"
     }
 }
